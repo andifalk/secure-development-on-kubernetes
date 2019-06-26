@@ -1,2 +1,3 @@
-# kubernetes-container-aber-sicher
-Slides und Demos zu "Kubernetes und Container - Aber Sicher!"
+# Kubernetes und Container - Aber Sicher!
+
+Slides und Demos zum Talk "Kubernetes und Container - Aber Sicher!"
