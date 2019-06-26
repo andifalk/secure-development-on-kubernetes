@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Kubernetes und Container - Aber Sicher!</title>
+        <meta name="description" content="Kubernetes und Container - Aber Sicher!">
+        <meta name="author" content="Andreas Falk">
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="icon" href="images/cropped-novatec-favicon-32x32.png" sizes="32x32" />
+        <link rel="icon" href="images/cropped-novatec-favicon-192x192.png" sizes="192x192" />
+
+
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/reveal.css">
+        <link href="css/theme/novatec.css" id="theme" rel="stylesheet">
+
+        <!-- Theme used for syntax highlighting of code -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+                <!-- Title, Speaker and Session Introduction -->
+                <section>
+                    <section>
+                        <h2 style="color: white">Kubernetes und Container - Aber Sicher!</h2>
+                        <p style="color: white">Andreas Falk</p>
+                        <p style="color: white">@andifalk</p>
+                        <p style="color: white">
+                            <small>
+                            Slides: <a href="https://andifalk.github.io/kubernetes-container-aber-sicher">https://andifalk.github.io/kubernetes-container-aber-sicher</a><br>
+                            Source-Code: <a href="https://github.com/andifalk/kubernetes-container-aber-sicher">https://github.com/andifalk/kubernetes-container-aber-sicher</a>
+                            </small>
+                        </p>
+                    </section>
+                    <section>
+                        <img class="plain" src="images/andreas_falk.jpg" width="40%">
+                        <h4>Andreas Falk</h4>
+                        <p><strong>Novatec Consulting GmbH</strong></p>
+                        <p><small>
+                            <a href="https://www.novatec-gmbh.de/">https://www.novatec-gmbh.de</a><br>
+                            andreas.falk@novatec-gmbh.de / @andifalk<br>
+                        </small></p>
+                        <p><img class="plain" src="images/novatec_logo_big.png" width="40%"></p>
+                    </section>
+                    <section>
+                        <h1>What's in this session</h1>
+                        <h3>Kubernetes 101</h3>
+                        <h3>Spring Cloud Kubernetes</h3>
+                        <h3>K8s Security Best Practices</h3>
+                    </section>
+                </section>
+
+                <!-- Introduction into K8s -->
+                <section>
+                    <section>
+                        <h1 style="color: white">Kubernetes</h1>
+                        <h2 style="color: white">101</h2>
+                    </section>
+                    <section>
+                        <h2>Kubernetes Basics</h2>
+                        <p>
+                            <img src="images/kubernetes_basics.png" class="plain" width="100%">
+                        </p>
+                        <p>
+                            <small>
+                                By courtesy of Matthias Haeussler (@maeddes)
+                            </small>
+                        </p>
+                    </section>
+                    <section>
+                        <h3>K8s Config Maps</h3>
+                        <pre><code class="hljs yml" data-trim>
+                                kind: ConfigMap
+                                apiVersion: v1
+                                metadata:
+                                  name: hello-spring-cloud-kubernetes
+                                  namespace: default
+                                data:
+                                  hello.message: k8s
+                                  hello.prefix: Hi
+                        </code></pre>
+                        <pre><code class="hljs yml" data-trim>
+                                ...
+                                data:
+                                  application.properties: |-
+                                    hello.message=k8s
+                                    hello.prefix=Hi
+                        </code></pre>
+                        <pre><code class="hljs yml" data-trim>
+                                ...
+                                data:
+                                  application.yaml: |-
+                                    hello:
+                                      message: k8s
+                                      prefix: Hi
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>K8s Secrets</h2>
+                        <pre><code class="hljs yml" data-trim>
+                            apiVersion: v1
+                            kind: Secret
+                            metadata:
+                              name: hello-spring-cloud-kubernetes
+                              namespace: default
+                            type: Opaque
+                            data:
+                              user.username: dXNlcg==
+                              user.password: azhzX3VzZXI=
+                              admin.username: YWRtaW4=
+                              admin.password: azhzX2FkbWlu
+                        </code></pre>
+                        <p style="color: red">Secrets in <em>etcd</em> DB are NOT encrypted with default settings !!</p>
+                        <p>Just Base64 encoded!</p>
+                    </section>
+                    <section>
+                        <h2>Why protect Secrets?</h2>
+                        <p>Attractive target for hackers</p>
+                        <p>Easily leak to repos, logs, ...</p>
+                        <p>Violation of &ldquo;Least Privilege&rdquo; principle</p>
+                    </section>
+                    <section>
+                        <h2>Best Practice for secrets</h2>
+                        <p>Do not use K8s API for reading secrets</p>
+                        <blockquote cite="https://kubernetes.io/docs/concepts/configuration/secret/#best-practices">
+                        "Listing secrets allows the clients to inspect the values of all secrets that are in that namespace."
+                        </blockquote>
+                        <p>
+                            <small>
+                                <a href="https://kubernetes.io/docs/concepts/configuration/secret/#best-practices">https://kubernetes.io/docs/concepts/configuration/secret/#best-practices</a>
+                            </small>
+                        </p>
+                    </section>
+                    <section>
+                        <h2>Best Practice for secrets</h2>
+                        <p>
+                            <img src="images/secrets_env_vars_tweet.png" class="plain" width="60%">
+                        </p>
+                    </section>
+                    <section>
+                        <h2>Encryption Layers</h2>
+                        <p>
+                            <img src="images/encryption_layers.png" class="plain" width="80%">
+                        </p>
+                    </section>
+                    <section>
+                        <h2>Envelope Encryption on K8S</h2>
+                        <p>
+                            <img src="images/envelope_encryption.png" class="plain" width="100%">
+                        </p>
+                        <p>Supported as of kubernetes version 1.10</p>
+                        <p>
+                            <small>
+                                <a href="https://cloud.google.com/kms/docs/envelope-encryption">https://cloud.google.com/kms/docs/envelope-encryption</a><br>
+                                <a href="https://kubernetes.io/docs/tasks/administer-cluster/kms-provider/">https://kubernetes.io/docs/tasks/administer-cluster/kms-provider/</a>
+                            </small>
+                        </p>
+                    </section>
+                    <section>
+                        <h2>Cloud KMS</h2>
+                        <p><a href="https://azure.microsoft.com/en-us/services/key-vault/">Azure Key Vault</a></p>
+                        <p><a href="https://cloud.google.com/kms/">Google Cloud KMS</a></p>
+                        <p><a href="https://aws.amazon.com/kms/">AWS KMS</a></p>
+                        <p><a href="https://github.com/oracle/kubernetes-vault-kms-plugin">Hashicorp Vault KMS Plugin</a></p>
+                    </section>
+                </section>
+
+                <!-- Config Maps -->
+                <section>
+                    <section>
+                        <h2 style="color: white">Spring Cloud Kubernetes</h2>
+                        <p>
+                            <small>
+                                <a href="https://spring.io/projects/spring-cloud-kubernetes">https://spring.io/projects/spring-cloud-kubernetes</a><br>
+                                <a href="https://cloud.spring.io/spring-cloud-kubernetes/spring-cloud-kubernetes.html">https://cloud.spring.io/spring-cloud-kubernetes/spring-cloud-kubernetes.html</a>
+                            </small>
+                        </p>
+                    </section>
+                    <section>
+                        <h2>Features</h2>
+                        <ul>
+                            <li>DiscoveryClient for Kubernetes (Ribbon Support)</li>
+                            <li>ConfigMapPropertySource</li>
+                            <li>SecretsPropertySource</li>
+                            <li>Kubernetes Ecosystem Awareness</li>
+                            <li>Kubernetes Profile</li>
+                            <ul>
+                                <li><a href="https://github.com/spring-cloud/spring-cloud-kubernetes/issues/347">Issue 347: Profile Specific Configuration Not Loaded</a></li>
+                            </ul>
+                            <li>Pod Health Indicator</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h4>Spring Cloud Kubernetes Starter Deps</h4>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Starter</th>
+                                <th>Description</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>spring-cloud-starter-kubernetes</td>
+                                <td>Discovery Client</td>
+                            </tr>
+                            <tr>
+                                <td>spring-cloud-starter-kubernetes-config</td>
+                                <td>Load application properties from ConfigMaps & Secrets</td>
+                            </tr>
+                            <tr>
+                                <td>spring-cloud-starter-kubernetes-ribbon</td>
+                                <td>Ribbon client-side load balancer</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                    <section>
+                        <h1 style="color: white">Demo Time</h1>
+                        <p>
+                            <small>
+                                <a href="https://github.com/andifalk/kubernetes-container-aber-sicher">https://github.com/andifalk/kubernetes-container-aber-sicher</a>
+                            </small>
+                        </p>
+                    </section>
+                </section>
+
+                <!-- Security Best Practices -->
+                <section>
+                    <section>
+                        <h2 style="color: white">Kubernetes Security</h2>
+                        <h2 style="color: white">Best Practices</h2>
+                    </section>
+                    <section>
+                        <h2>Kubernetes Security?</h2>
+                        <img src="images/tweet_kubernetes_all_root.png" width="100%" class="plain">
+                    </section>
+                    <section>
+                        <h2>Helm is Root on K8s</h2>
+                        <img src="images/helm_3_tweet.png" width="100%" class="plain">
+                    </section>
+                    <section>
+                        <h1>Say no to Root</h1>
+                        <p><em>USER</em> directive in Dockerfile</p>
+                        <p>K8s Security Context for a Pod/Container</p>
+                        <p>Pod Security Policy (Beta)</p>
+                        <p>
+                            <small>
+                                <a href="https://opensource.com/article/18/3/just-say-no-root-containers">Just say no to root containers</a><br>
+                                <a href="https://kubernetes.io/docs/concepts/policy/pod-security-policy/">Pod Security Policy</a><br>
+                                <a href="https://kubernetes.io/docs/tasks/configure-pod-container/security-context/">Pod Security Context</a>
+                            </small>
+                        </p>
+                    </section>
+                    <section>
+                        <h3>Vulnerabilities in well-know images</h3>
+                        <img src="images/docker_images_vulnerabilities.png" class="plain" width="100%">
+                        <p>
+                            <small>
+                                <a href="https://snyk.io/opensourcesecurity-2019/">Source: The state of open source security report (snyk.io)</a>
+                            </small>
+                        </p>
+                    </section>
+                    <section>
+                        <h2>Root without Password!</h2>
+                        <img src="images/alpine_docker_cve.png" class="plain" width="75%">
+                    </section>
+                    <section>
+                        <h2>Keep being secure</h2>
+                        <p>Perform image scanning (Anchore, Clair, ...)</p>
+                        <p>Regularly update your kubernetes cluster version</p>
+                        <p>Regularly update your (base) images</p>
+                        <p>Checkout Google Distroless Images</p>
+                        <p>
+                            <small>
+                                <a href="https://github.com/GoogleContainerTools/distroless">https://github.com/GoogleContainerTools/distroless</a>
+                            </small>
+                        </p>
+                    </section>
+                </section>
+
+                <!-- The End -->
+                <section>
+                    <section>
+                        <h2>Summary / Key Insights</h2>
+                        <ul>
+                            <li>Configs, Secrets & Discovery the &ldquo;Spring Way&rdquo;
+                                <br>-- More to come: Istio & Helm awareness, ...</li>
+                            <li><span style="color: red">&ldquo;Least privilege&rdquo;</span> for service accounts</li>
+                            <li>Ensure your secrets are <span style="color: red">encrypted</span> in K8s</li>
+                            <li>Say <span style="color: red">NO</span> to root on K8s</li>
+                            <li>Keep K8s and container images <span style="color: red">up-to-date</span></li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h1 style="color: white">Q&A</h1>
+                        <a href="https://www.novatec-gmbh.de/">https://www.novatec-gmbh.de</a></br>
+                        <a href="https://blog.novatec-gmbh.de/">https://blog.novatec-gmbh.de</a><br>
+                        <p style="color: white">andreas.falk@novatec-gmbh.de<br>
+                        Twitter: @andifalk</p>
+                    </section>
+                </section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+                hash: true,
+                fragmentInURL: false,
+                dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+                    { src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+            Reveal.configure({
+                slideNumber: 'c/t',
+                pdfMaxPagesPerSlide: 1
+            });
+		</script>
+	</body>
+</html>
