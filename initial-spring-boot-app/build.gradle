@@ -1,10 +1,11 @@
 import com.github.spotbugs.SpotBugsTask
 
 plugins {
-    id 'org.springframework.boot' version '2.1.3.RELEASE'
+    id 'org.springframework.boot' version '2.1.6.RELEASE'
     id 'java'
     id "com.github.spotbugs" version "2.0.0"
     id 'org.owasp.dependencycheck' version "5.0.0"
+    id 'com.palantir.docker' version '0.22.1'
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -23,6 +24,10 @@ configurations {
     }
 }
 
+test {
+    useJUnitPlatform()
+}
+
 dependencyCheck {
     failBuildOnCVSS = 8
     suppressionFile = file('depcheck-suppressions.xml')
@@ -37,10 +42,18 @@ tasks.withType(SpotBugsTask) {
     reports.html.enabled = true
 }
 
+docker {
+    name 'andifalk/initial-spring-boot-app:latest'
+    //name 'eu.gcr.io/pa-afa-kubernetes/hello-spring-kubernetes:latest'
+    files bootJar.archiveFile
+}
+
 check.dependsOn dependencyCheckAnalyze
 
 repositories {
     mavenCentral()
+    maven { url 'https://repo.spring.io/snapshot' }
+    maven { url 'https://repo.spring.io/milestone' }
 }
 
 dependencies {
@@ -53,4 +66,7 @@ dependencies {
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.9.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testImplementation("org.junit.jupiter:junit-jupiter-params")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 }

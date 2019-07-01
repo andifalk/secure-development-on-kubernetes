@@ -1,7 +1,6 @@
 package com.example.initial.app.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -20,6 +19,14 @@ public class GreetingConfiguration {
   @NotBlank
   @Size(max = 50)
   private String mySec;
+
+  @NotBlank
+  @Size(max = 50)
+  private String username;
+
+  @NotBlank
+  @Size(max = 255)
+  private String password;
 
   public String getGreeting() {
     return greeting;
@@ -43,5 +50,21 @@ public class GreetingConfiguration {
 
   public void setMySec(String mySec) {
     this.mySec = mySec;
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
   }
 }

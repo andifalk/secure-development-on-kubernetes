@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Size;
 
 @RestController
 @Validated
-@RequestMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class GreetingRestController {
 
   private final GreetingConfiguration greetingConfiguration;
@@ -27,15 +28,9 @@ public class GreetingRestController {
 
   @GetMapping("/")
   public Greeting greeting(
-      @RequestParam(name = "message", required = false) String message) {
+      @RequestParam(name = "message", required = false) @Size(max = 30) String message) {
     return new Greeting(
         greetingConfiguration.getGreeting(),
         (message != null && !message.isBlank()) ? Encode.forJavaScript(message) : greetingConfiguration.getMessage());
-  }
-
-  @PostMapping(path = "/", consumes = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.APPLICATION_JSON_VALUE})
-  public Greeting postGreeting(
-      @RequestBody @Valid Greeting greeting) {
-    return new Greeting(greetingConfiguration.getGreeting(), Encode.forJavaScript(greeting.getMessage()));
   }
 }
