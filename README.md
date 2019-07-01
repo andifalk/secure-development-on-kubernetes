@@ -8,7 +8,7 @@ Slides und Demos zum Talk "Kubernetes und Container - Aber Sicher!"
 
 ## Demos
 
-* Initial Spring Boot Application
+* [Initial Spring Boot Application](initial-spring-boot-app/README.md)
 * Unsafe Kubernetes Deployment
 * Safe Kubernetes Deployment (Pod Security Context)
 * Safe Kubernetes Deployment (Pod Security Policies)
