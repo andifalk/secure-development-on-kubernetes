@@ -62,16 +62,49 @@ body {
   font-size: 2.5em; }
 
 .reveal h2 {
-  font-size: 1.6em; }
+  font-size: 1.6em;
+  text-align: left;
+}
 
 .reveal h3 {
-  font-size: 1.3em; }
+  font-size: 1.3em;
+  text-align: left;
+}
 
 .reveal h4 {
-  font-size: 1em; }
+  font-size: 1em;
+  text-align: left;
+}
 
 .reveal h1 {
   text-shadow: none; }
+
+.reveal h2::before{
+  background-image: linear-gradient(to right, rgb(95, 188, 151) 0%, rgb(54, 188, 233) 100%);
+  content:"";
+  display:block;
+  height: 8px;
+  left: 0px;
+  position: relative;
+  top: 0px;
+  min-width: 20px;
+  margin-bottom: 0.4em;
+  max-width: 35%;
+}
+
+.reveal h3::after,
+.reveal h4::after{
+  background-image: linear-gradient(to right, rgb(95, 188, 151) 0%, rgb(54, 188, 233) 100%);
+  content:"";
+  display:block;
+  height:5px;
+  left:0px;
+  position:relative;
+  bottom:0px;
+  min-width:20px;
+  max-width: 35%;
+  margin-top: 0.3em;
+}
 
 /*********************************************
  * OTHER

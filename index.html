@@ -40,10 +40,10 @@
 
                 <!-- Title, Speaker and Session Introduction -->
                 <section>
-                    <section>
-                        <h2 style="color: white">Kubernetes und Container - Aber Sicher!</h2>
-                        <p style="color: white">Andreas Falk</p>
-                        <p style="color: white">@andifalk</p>
+                    <section data-background="images/novatec_title_back.png">
+                        <p>&nbsp;</p>
+                        <h1 style="color: white">Kubernetes und Container - Aber Sicher!</h1>
+                        <p style="color: white">Andreas Falk / @andifalk</p>
                         <p style="color: white">
                             <small>
                             Slides: <a href="https://andifalk.github.io/kubernetes-container-aber-sicher">https://andifalk.github.io/kubernetes-container-aber-sicher</a><br>
@@ -53,7 +53,7 @@
                     </section>
                     <section>
                         <img class="plain" src="images/andreas_falk.jpg" width="40%">
-                        <h4>Andreas Falk</h4>
+                        <p><strong>Andreas Falk</strong></p>
                         <p><strong>Novatec Consulting GmbH</strong></p>
                         <p><small>
                             <a href="https://www.novatec-gmbh.de/">https://www.novatec-gmbh.de</a><br>
@@ -61,19 +61,122 @@
                         </small></p>
                         <p><img class="plain" src="images/novatec_logo_big.png" width="40%"></p>
                     </section>
+                </section>
+
+                <section>
+                    <section data-background="images/novatec_title_back.png">
+                        <p>&nbsp;</p>
+                        <h1 style="color: white">K8s & Containers</h1>
+                        <h4 style="color: white">What could go wrong here?</h4>
+                    </section>
                     <section>
-                        <h1>What's in this session</h1>
-                        <h3>Kubernetes 101</h3>
-                        <h3>Spring Cloud Kubernetes</h3>
-                        <h3>K8s Security Best Practices</h3>
+                        <h4>Challenges in Kubernetes</h4>
+                        <img src="images/new-stack-securitytop.png" width="78%" class="plain">
+                        <p>
+                            <small>
+                                <a href="https://thenewstack.io/top-challenges-kubernetes-users-face-deployment/">Source: https://thenewstack.io</a>
+                            </small>
+                        </p>
+                    </section>
+                    <section>
+                        <h4>Severe vulnerability in Kubernetes</h4>
+                        <img src="images/kubernetes_severe_vulnerability.png" width="85%" class="plain">
+                        <p>
+                            <small>
+                                <a href="https://blog.aquasec.com/kubernetes-security-cve-2018-1002105">Source: https://blog.aquasec.com</a>
+                            </small>
+                        </p>
+                    </section>
+                    <section>
+                        <h4>Crypto mining via K8s dashboard</h4>
+                        <img src="images/tesla_hack.png" width="77%" class="plain">
+                        <p>
+                            <small>
+                                <a href="https://blog.heptio.com/on-securing-the-kubernetes-dashboard-16b09b1b7aca">Source: https://blog.heptio.com</a>
+                            </small>
+                        </p>
+                    </section>
+                    <section>
+                        <h4>Open etcd (1)</h4>
+                        <img src="images/shodan.png" width="77%" class="plain">
+                        <p>
+                            <small>
+                                <a href="https://shodan.io">https://shodan.io</a>
+                            </small>
+                        </p>
+                    </section>
+                    <section>
+                        <h4>Open etcd (2)</h4>
+                        <img src="images/shodan.png" width="50%" class="plain">
+                        <pre><code class="hljs bash" data-trim>
+                            $ etcdctl --endpoints=http://xx.xx.xx.xx:2379 cluster-health
+                            member b97ee4034db41d17 is healthy: got healthy result
+                            from http://xx.xx.xx.xx:2379
+                            cluster is healthy
+                        </code></pre>
+                        <p>
+                            <small>
+                                <a href="https://github.com/etcd-io/etcd/releases">https://github.com/etcd-io/etcd/releases</a>
+                            </small>
+                        </p>
+                    </section>
+                    <section>
+                        <h3>Vulnerable docker images</h3>
+                        <img src="images/docker_images_vulnerabilities.png" class="plain" width="100%">
+                        <p>
+                            <small>
+                                <a href="https://snyk.io/opensourcesecurity-2019/">Source: The state of open source security report (snyk.io)</a>
+                            </small>
+                        </p>
+                    </section>
+                    <section>
+                        <h4>All is root!</h4>
+                        <img src="images/tweet_kubernetes_all_root.png" width="100%" class="plain">
+                    </section>
+                    <section>
+                        <h3>Root without Password!</h3>
+                        <img src="images/alpine_docker_cve.png" class="plain" width="75%">
+                    </section>
+                    <section>
+                        <h2>What's in this session</h2>
+                        <p>Docker Security 101</p>
+                        <p>Kubernetes 101</p>
+                        <p>Spring Cloud Kubernetes</p>
+                        <p>K8s Security Best Practices</p>
+                    </section>
+                </section>
+
+                <!-- Introduction into Docker (Security) -->
+                <section>
+                    <section data-background="images/novatec_title_back.png">
+                        <h1 style="color: white">Docker Security</h1>
+                        <h1 style="color: white">101</h1>
+                    </section>
+                    <section>
+                        <h3>Docker Security Basics</h3>
+                        <p>
+                            <img src="images/docker_security.png" class="plain" width="80%">
+                        </p>
+                    </section>
+                    <section>
+                        <h3>Container Images</h3>
+                        <p>
+                            <img src="images/docker_container_security.png" class="plain" width="80%">
+                        </p>
+                    </section>
+                    <section>
+                        <h3>Image Security</h3>
+                        <p>
+                            <img src="images/container_image_security.png" class="plain" width="100%">
+                        </p>
                     </section>
                 </section>
 
                 <!-- Introduction into K8s -->
                 <section>
-                    <section>
+                    <section data-background="images/novatec_title_back.png">
                         <h1 style="color: white">Kubernetes</h1>
-                        <h2 style="color: white">101</h2>
+                        <h1 style="color: white">101</h1>
                     </section>
                     <section>
                         <h2>Kubernetes Basics</h2>
@@ -99,14 +202,12 @@
                                   hello.prefix: Hi
                         </code></pre>
                         <pre><code class="hljs yml" data-trim>
-                                ...
                                 data:
                                   application.properties: |-
                                     hello.message=k8s
                                     hello.prefix=Hi
                         </code></pre>
                         <pre><code class="hljs yml" data-trim>
-                                ...
                                 data:
                                   application.yaml: |-
                                     hello:
@@ -115,7 +216,7 @@
                         </code></pre>
                     </section>
                     <section>
-                        <h2>K8s Secrets</h2>
+                        <h3>K8s Secrets</h3>
                         <pre><code class="hljs yml" data-trim>
                             apiVersion: v1
                             kind: Secret
@@ -133,13 +234,13 @@
                         <p>Just Base64 encoded!</p>
                     </section>
                     <section>
-                        <h2>Why protect Secrets?</h2>
+                        <h3>Why protect Secrets?</h3>
                         <p>Attractive target for hackers</p>
                         <p>Easily leak to repos, logs, ...</p>
                         <p>Violation of &ldquo;Least Privilege&rdquo; principle</p>
                     </section>
                     <section>
-                        <h2>Best Practice for secrets</h2>
+                        <h3>Best Practice for secrets</h3>
                         <p>Do not use K8s API for reading secrets</p>
                         <blockquote cite="https://kubernetes.io/docs/concepts/configuration/secret/#best-practices">
                         "Listing secrets allows the clients to inspect the values of all secrets that are in that namespace."
@@ -151,19 +252,19 @@
                         </p>
                     </section>
                     <section>
-                        <h2>Best Practice for secrets</h2>
+                        <h3>Best Practice for secrets</h3>
                         <p>
                             <img src="images/secrets_env_vars_tweet.png" class="plain" width="60%">
                         </p>
                     </section>
                     <section>
-                        <h2>Encryption Layers</h2>
+                        <h3>Encryption Layers</h3>
                         <p>
                             <img src="images/encryption_layers.png" class="plain" width="80%">
                         </p>
                     </section>
                     <section>
-                        <h2>Envelope Encryption on K8S</h2>
+                        <h3>Envelope Encryption on K8S</h3>
                         <p>
                             <img src="images/envelope_encryption.png" class="plain" width="100%">
                         </p>
@@ -176,18 +277,18 @@
                         </p>
                     </section>
                     <section>
-                        <h2>Cloud KMS</h2>
-                        <p><a href="https://azure.microsoft.com/en-us/services/key-vault/">Azure Key Vault</a></p>
-                        <p><a href="https://cloud.google.com/kms/">Google Cloud KMS</a></p>
-                        <p><a href="https://aws.amazon.com/kms/">AWS KMS</a></p>
-                        <p><a href="https://github.com/oracle/kubernetes-vault-kms-plugin">Hashicorp Vault KMS Plugin</a></p>
+                        <h3>Cloud KMS</h3>
+                        <h5><a href="https://azure.microsoft.com/en-us/services/key-vault/">Azure Key Vault</a></h5>
+                        <h5><a href="https://cloud.google.com/kms/">Google Cloud KMS</a></h5>
+                        <h5><a href="https://aws.amazon.com/kms/">AWS KMS</a></h5>
+                        <h5><a href="https://github.com/oracle/kubernetes-vault-kms-plugin">Hashicorp Vault KMS Plugin</a></h5>
                     </section>
                 </section>
 
                 <!-- Config Maps -->
                 <section>
-                    <section>
-                        <h2 style="color: white">Spring Cloud Kubernetes</h2>
+                    <section data-background="images/novatec_title_back.png">
+                        <h1 style="color: white">Spring Cloud Kubernetes</h1>
                         <p>
                             <small>
                                 <a href="https://spring.io/projects/spring-cloud-kubernetes">https://spring.io/projects/spring-cloud-kubernetes</a><br>
@@ -246,7 +347,7 @@
 
                 <!-- Security Best Practices -->
                 <section>
-                    <section>
+                    <section data-background="images/novatec_title_back.png" data-background-size="100%">
                         <h2 style="color: white">Kubernetes Security</h2>
                         <h2 style="color: white">Best Practices</h2>
                     </section>
@@ -300,6 +401,9 @@
 
                 <!-- The End -->
                 <section>
+                    <section data-background="images/novatec_title_back.png" data-background-size="100%">
+                        <h1 style="color: white">The End</h1>
+                    </section>
                     <section>
                         <h2>Summary / Key Insights</h2>
                         <ul>
@@ -311,12 +415,14 @@
                             <li>Keep K8s and container images <span style="color: red">up-to-date</span></li>
                         </ul>
                     </section>
-                    <section>
+                    <section data-background="images/novatec_final_back.png" data-background-size="100%">
+                        <div style="alignment: left; text-align: left">
                         <h1 style="color: white">Q&A</h1>
                         <a href="https://www.novatec-gmbh.de/">https://www.novatec-gmbh.de</a></br>
                         <a href="https://blog.novatec-gmbh.de/">https://blog.novatec-gmbh.de</a><br>
                         <p style="color: white">andreas.falk@novatec-gmbh.de<br>
                         Twitter: @andifalk</p>
+                        </div>
                     </section>
                 </section>
 			</div>
