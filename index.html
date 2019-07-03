@@ -42,7 +42,7 @@
                 <section>
                     <section data-background="images/novatec_title_back.png">
                         <p>&nbsp;</p>
-                        <h1 style="color: white">Kubernetes und Container - Aber Sicher!</h1>
+                        <h3 style="color: white">Kubernetes und Container - Aber Sicher!</h3>
                         <p style="color: white">Andreas Falk / @andifalk</p>
                         <p style="color: white">
                             <small>
@@ -141,8 +141,8 @@
                         <h2>What's in this session</h2>
                         <p>Docker Security 101</p>
                         <p>Kubernetes 101</p>
-                        <p>Spring Cloud Kubernetes</p>
-                        <p>K8s Security Best Practices</p>
+                        <p>Secure Kubernetes Deployment (Live Demo)</p>
+                        <p>Kubernetes Security Best Practices</p>
                     </section>
                 </section>
 
@@ -187,6 +187,176 @@
                             <small>
                                 By courtesy of Matthias Haeussler (@maeddes)
                             </small>
+                        </p>
+                    </section>
+                </section>
+
+
+                <!-- Live Demo Part -->
+                <section>
+                    <section data-background="images/novatec_title_back.png">
+                        <h1 style="color: white">Secure K8s Deployment</h1>
+                        <h5 style="color: white"><strong>Live Demos</strong></h5>
+                        <p style="color: white">
+                            <small>
+                                Demos-Code: <a href="https://github.com/andifalk/kubernetes-container-aber-sicher">https://github.com/andifalk/kubernetes-container-aber-sicher</a>
+                            </small>
+                        </p>
+                    </section>
+                    <section>
+                        <h3>Deployment Steps</h3>
+                        <p>
+                            <img src="images/appsecurity_kubernetes_complete.png" class="plain" width="100%">
+                        </p>
+                    </section>
+                    <section>
+                        <h3>Application Security</h3>
+                        <p>
+                            <img src="images/appsecurity_kubernetes_step1.png" class="plain" width="100%">
+                        </p>
+                    </section>
+                    <section>
+                        <h3>Application Security</h3>
+                        <p>
+                            <img src="images/appsecurity.png" class="plain" width="100%">
+                        </p>
+                    </section>
+                    <section>
+                        <h3>Demo Time - Show me the Code</h3>
+                        <p>
+                            <small>
+                                <a href="https://github.com/andifalk/kubernetes-container-aber-sicher/tree/master/initial-spring-boot-app">Demo-Code: Initial Spring Boot Application</a>
+                            </small>
+                        </p>
+                    </section>
+                    <section>
+                        <h3>Container Security</h3>
+                        <p>
+                            <img src="images/appsecurity_kubernetes_step2.png" class="plain" width="100%">
+                        </p>
+                    </section>
+                    <section>
+                        <h1>Say no to Root</h1>
+                        <p><em>USER</em> directive in Dockerfile</p>
+                        <p>
+                            <small>
+                                <a href="https://opensource.com/article/18/3/just-say-no-root-containers">Just say no to root containers</a><br>
+                            </small>
+                        </p>
+                    </section>
+                    <section>
+                        <h3>Say no to Root</h3>
+                        <p>Dockerfile</p>
+                        <pre><code class="hljs bash" data-trim>
+                            FROM openjdk:11-jre-slim
+                            COPY hello-spring-kubernetes-1.0.0-SNAPSHOT.jar app.jar
+                            EXPOSE 8080
+                            RUN addgroup --system --gid 1002 app && adduser
+                                --system --uid 1002 --gid 1002 appuser
+                            USER 1002
+                            ENTRYPOINT java -jar /app.jar
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>Vulnerabilities in well-know images</h3>
+                        <img src="images/docker_images_vulnerabilities.png" class="plain" width="100%">
+                        <p>
+                            <small>
+                                <a href="https://snyk.io/opensourcesecurity-2019/">Source: The state of open source security report (snyk.io)</a>
+                            </small>
+                        </p>
+                    </section>
+                    <section>
+                        <h2>Keep being secure</h2>
+                        <p>Perform image scanning (Anchore, Clair, ...)</p>
+                        <p>Regularly update your (base) images</p>
+                        <p>Checkout Google Distroless Images</p>
+                        <p>
+                            <small>
+                                <a href="https://anchore.com/opensource/">https://anchore.com/opensource</a><br>
+                                <a href="https://github.com/coreos/clair">https://github.com/coreos/clair</a><br>
+                                <a href="https://docs.docker.com/ee/dtr/">https://docs.docker.com/ee/dtr (Docker Trusted Registry)</a><br>
+                                <a href="https://github.com/GoogleContainerTools/distroless">https://github.com/GoogleContainerTools/distroless</a>
+                            </small>
+                        </p>
+                    </section>
+                    <section>
+                        <h3>Demo Time - Show me the Code</h3>
+                        <p>
+                            <small>
+                                <a href="https://github.com/andifalk/kubernetes-container-aber-sicher/tree/master/initial-spring-boot-app">Demo-Code: Initial Spring Boot Application</a>
+                            </small>
+                        </p>
+                    </section>
+                    <section>
+                        <h3>Kubernetes Security</h3>
+                        <p>
+                            <img src="images/appsecurity_kubernetes_step3.png" class="plain" width="100%">
+                        </p>
+                    </section>
+                    <section>
+                        <h1>Say no to Root</h1>
+                        <p><em>USER</em> directive in Dockerfile</p>
+                        <p>K8s Security Context for a Pod/Container</p>
+                        <p>Pod Security Policy (Beta)</p>
+                        <p>
+                            <small>
+                                <a href="https://opensource.com/article/18/3/just-say-no-root-containers">Just say no to root containers</a><br>
+                                <a href="https://kubernetes.io/docs/concepts/policy/pod-security-policy/">Pod Security Policy</a><br>
+                                <a href="https://kubernetes.io/docs/tasks/configure-pod-container/security-context/">Pod Security Context</a>
+                            </small>
+                        </p>
+                    </section>
+                    <section>
+                        <h3>Helm is Root on K8s</h3>
+                        <img src="images/helm_3_tweet.png" width="100%" class="plain">
+                    </section>
+                    <section>
+                        <h3>Keep being secure</h3>
+                        <ul>
+                        <li>Restrict ports & enable authentication <br>(api-server/etcd/kubelet)</li>
+                        <li>Configure network policies</li>
+                        <li>Use role-based access control (RBAC)</li>
+                        <li>Regularly update kubernetes version</li>
+                        </ul>
+                        <p>
+                            <small>
+                                <a href="https://kubernetes.io/docs/tasks/administer-cluster/securing-a-cluster/">Securing a Cluster</a><br>
+                                <a href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/">Kubernetes RBAC</a><br>
+                                <a href="https://kubernetes.io/docs/concepts/services-networking/network-policies/">Kubernetes Network Policies</a><br>
+                            </small>
+                        </p>
+                    </section>
+                    <section>
+                        <h3>Keep being secure (cont'd)</h3>
+                        <ul>
+                            <li>Enable node patching (Reboot nodes)</li>
+                            <li>Monitor your cluster & apps</li>
+                            <li>Enable K8s auditing</li>
+                            <li>Log all the things</li>
+                        </ul>
+                        <p>
+                            <small>
+                                <a href="https://github.com/weaveworks/kured">Kubernetes Reboot Daemon</a>
+                                <a href="https://kubernetes.io/docs/tasks/debug-application-cluster/">K8s Monitoring, Logging, and Debugging</a><br>
+                                <a href="https://www.fluentd.org/">Fluentd Log Collector</a><br>
+                                <a href="https://kubernetes.io/docs/tasks/debug-application-cluster/audit/">Kubernetes Auditing</a><br>
+                                <a href="https://prometheus.io/">Prometheus</a><br>
+                            </small>
+                        </p>
+                    </section>
+                    <section>
+                        <h3>Demo Time - Show me the Code</h3>
+                        <p>
+                            <small>
+                                <a href="https://github.com/andifalk/kubernetes-container-aber-sicher/tree/master/initial-spring-boot-app">Demo-Code: Initial Spring Boot Application</a>
+                            </small>
+                        </p>
+                    </section>
+                    <section>
+                        <h3>Kubernetes Secrets</h3>
+                        <p>
+                            <img src="images/appsecurity_kubernetes_step4.png" class="plain" width="100%">
                         </p>
                     </section>
                     <section>
@@ -243,7 +413,7 @@
                         <h3>Best Practice for secrets</h3>
                         <p>Do not use K8s API for reading secrets</p>
                         <blockquote cite="https://kubernetes.io/docs/concepts/configuration/secret/#best-practices">
-                        "Listing secrets allows the clients to inspect the values of all secrets that are in that namespace."
+                            "Listing secrets allows the clients to inspect the values of all secrets that are in that namespace."
                         </blockquote>
                         <p>
                             <small>
@@ -254,7 +424,7 @@
                     <section>
                         <h3>Best Practice for secrets</h3>
                         <p>
-                            <img src="images/secrets_env_vars_tweet.png" class="plain" width="60%">
+                            <img src="images/secrets_env_vars_tweet.png" class="plain" width="58%">
                         </p>
                     </section>
                     <section>
@@ -283,10 +453,6 @@
                         <h5><a href="https://aws.amazon.com/kms/">AWS KMS</a></h5>
                         <h5><a href="https://github.com/oracle/kubernetes-vault-kms-plugin">Hashicorp Vault KMS Plugin</a></h5>
                     </section>
-                </section>
-
-                <!-- Config Maps -->
-                <section>
                     <section data-background="images/novatec_title_back.png">
                         <h1 style="color: white">Spring Cloud Kubernetes</h1>
                         <p>
@@ -311,89 +477,10 @@
                         </ul>
                     </section>
                     <section>
-                        <h4>Spring Cloud Kubernetes Starter Deps</h4>
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>Starter</th>
-                                <th>Description</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>spring-cloud-starter-kubernetes</td>
-                                <td>Discovery Client</td>
-                            </tr>
-                            <tr>
-                                <td>spring-cloud-starter-kubernetes-config</td>
-                                <td>Load application properties from ConfigMaps & Secrets</td>
-                            </tr>
-                            <tr>
-                                <td>spring-cloud-starter-kubernetes-ribbon</td>
-                                <td>Ribbon client-side load balancer</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </section>
-                    <section>
-                        <h1 style="color: white">Demo Time</h1>
+                        <h3>Demo Time - Show me the Code</h3>
                         <p>
                             <small>
-                                <a href="https://github.com/andifalk/kubernetes-container-aber-sicher">https://github.com/andifalk/kubernetes-container-aber-sicher</a>
-                            </small>
-                        </p>
-                    </section>
-                </section>
-
-                <!-- Security Best Practices -->
-                <section>
-                    <section data-background="images/novatec_title_back.png" data-background-size="100%">
-                        <h2 style="color: white">Kubernetes Security</h2>
-                        <h2 style="color: white">Best Practices</h2>
-                    </section>
-                    <section>
-                        <h2>Kubernetes Security?</h2>
-                        <img src="images/tweet_kubernetes_all_root.png" width="100%" class="plain">
-                    </section>
-                    <section>
-                        <h2>Helm is Root on K8s</h2>
-                        <img src="images/helm_3_tweet.png" width="100%" class="plain">
-                    </section>
-                    <section>
-                        <h1>Say no to Root</h1>
-                        <p><em>USER</em> directive in Dockerfile</p>
-                        <p>K8s Security Context for a Pod/Container</p>
-                        <p>Pod Security Policy (Beta)</p>
-                        <p>
-                            <small>
-                                <a href="https://opensource.com/article/18/3/just-say-no-root-containers">Just say no to root containers</a><br>
-                                <a href="https://kubernetes.io/docs/concepts/policy/pod-security-policy/">Pod Security Policy</a><br>
-                                <a href="https://kubernetes.io/docs/tasks/configure-pod-container/security-context/">Pod Security Context</a>
-                            </small>
-                        </p>
-                    </section>
-                    <section>
-                        <h3>Vulnerabilities in well-know images</h3>
-                        <img src="images/docker_images_vulnerabilities.png" class="plain" width="100%">
-                        <p>
-                            <small>
-                                <a href="https://snyk.io/opensourcesecurity-2019/">Source: The state of open source security report (snyk.io)</a>
-                            </small>
-                        </p>
-                    </section>
-                    <section>
-                        <h2>Root without Password!</h2>
-                        <img src="images/alpine_docker_cve.png" class="plain" width="75%">
-                    </section>
-                    <section>
-                        <h2>Keep being secure</h2>
-                        <p>Perform image scanning (Anchore, Clair, ...)</p>
-                        <p>Regularly update your kubernetes cluster version</p>
-                        <p>Regularly update your (base) images</p>
-                        <p>Checkout Google Distroless Images</p>
-                        <p>
-                            <small>
-                                <a href="https://github.com/GoogleContainerTools/distroless">https://github.com/GoogleContainerTools/distroless</a>
+                                <a href="https://github.com/andifalk/kubernetes-container-aber-sicher/tree/master/initial-spring-boot-app">Demo-Code: Initial Spring Boot Application</a>
                             </small>
                         </p>
                     </section>
