@@ -1,4 +1,4 @@
-# Initial Spring Boot Application
+# Initial Unsafe K8s Deployment
 
 This is the initial demo application that will be used for showing
 all security patterns when deploying and running this in Kubernetes.
@@ -19,9 +19,67 @@ Login credentials are:
 * Standard user: _user_ / _secret_
 * Admin user: _admin_ / _secret_  
   
-## Run the application
+## Deploy the application
 
-Just start it by running _com.example.initial.app.InitialSpringBootApplication_.
+The corresponding container image is pulled 
+from [andifalk/initial-unsafe-deploy](https://cloud.docker.com/repository/registry-1.docker.io/andifalk/initial-unsafe-deploy) docker hub repository.
+
+The application is deployed using a minimal (and quite unsafe) deployment yaml file _k8s/deploy-initial.yaml_:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: initial-unsafe-deploy
+  name: initial-unsafe-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: initial-unsafe-deploy
+  template:
+    metadata:
+      labels:
+        app: initial-unsafe-deploy
+    spec:
+      containers:
+        - image: andifalk/initial-unsafe-deploy:latest
+          name: initial-unsafe-deploy
+          imagePullPolicy: Always
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5    
+      restartPolicy: Always
+```
+
+Please note that the container runs with complete root rights as root user!
+
+You can prove this by using these commands:
+
+```bash
+docker container run --rm --detach --name unsafe-deploy \
+--publish 8080:8080 andifalk/initial-unsafe-deploy:latest
+docker exec unsafe-deploy whoami
+```
+
+This should return the following user information (it really is root)
+
+```bash
+root
+```
+
+You should also be able to reach the dockerized application 
+via http://localhost:8080.
+
+Finally stop the running container by using the following command:
+
+```bash
+docker stop unsafe-deploy
+```
 
 ## Sample command client requests
 
@@ -58,39 +116,3 @@ This should return a custom greeting:
 ```bash
 curl --user user:secret http://localhost:8080\?message\=Test
 ```
-
-## Sample browser requests
-
-By using the browser we can try to put in 
-some cross-site scripting (XSS) snippets into the message parameter.
-
-Try to display a popup via javascript:
-
-```http request
-http://localhost:8080/?message=<script>alert('XSS')</script>
-```
-
-Try to read the JSESSION cookie:
-
-```http request
-http://localhost:8080/?message=<script>alert(document.cookie)</script> 
-```
-
-Try to redirect to Google search via XSS:
-
-```http request
-http://localhost:8080/?message=<script>document.location="http://www.google.com/"</script>
-``` 
-
-With the default code XSS is not working as there are multiple 
-defense mechanisms in place:
-
-* Input validation only permits maximum length of _30_ for url message parameter
-* Reflected greeting is output escaped (Html AND javascript)
-* Content-Type is set to _application/json_ 
-* Browser XSS filter is enabled via response header
-* Session cookie is not reachable via javascript (_http_only_)
-
-If you __disable__ all these precautions then you should see XSS working.
-
-### Please do not use this in productive code !!! 

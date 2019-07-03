@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: initial-unsafe-deploy
+  name: initial-unsafe-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: initial-unsafe-deploy
+  template:
+    metadata:
+      labels:
+        app: initial-unsafe-deploy
+    spec:
+      containers:
+        - image: andifalk/initial-unsafe-deploy:latest
+          name: initial-unsafe-deploy
+          imagePullPolicy: Always
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5    
+      restartPolicy: Always
