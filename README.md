@@ -10,7 +10,21 @@ Slides und Demos zum Talk "Kubernetes und Container - Aber Sicher!"
 
 * [Initial Spring Boot Application](initial-spring-boot-app/README.md)
 * [Unsafe Kubernetes Deployment](initial-unsafe-deploy/README.md)
-* Safe Kubernetes Deployment (Pod Security Context)
-* Safe Kubernetes Deployment (Pod Security Policies)
+* [Safe Kubernetes Deployment (Pod Security Context)](deploy-security-context/README.md)
+* [Safe Kubernetes Deployment (Pod Security Policy)](deploy-pod-security-policy/README.md)
 * Kubernetes Secrets
+
+## Provisioning
+
+The [gke-provisioning](gke-provisioning) directory contains
+scripts to create a kubernetes cluster on google cloud.
+There is also a script to update the cluster to enable pod security policy.
+
+To use the scripts you must have google cloud cli installed and be logged in
+to GCP.
+
+```bash
+gcloud auth login
+gcloud config set project [project]
+```
 

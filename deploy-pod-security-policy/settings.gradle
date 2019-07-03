@@ -12,10 +12,4 @@ pluginManagement {
         }
     }
 }
-rootProject.name = 'kubernetes-container-aber-sicher'
-
-include 'initial-spring-boot-app'
-include 'initial-unsafe-deploy'
-include 'deploy-security-context'
-include 'deploy-pod-security-policy'
-
+rootProject.name = 'deploy-pod-security-policy'

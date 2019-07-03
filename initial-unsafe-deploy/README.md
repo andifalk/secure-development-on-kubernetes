@@ -1,23 +1,8 @@
 # Initial Unsafe K8s Deployment
 
-This is the initial demo application that will be used for showing
-all security patterns when deploying and running this in Kubernetes.
+This deploys the demo application to Kubernetes using unsafe defaults.
 
-This application provides two REST APIs:
-
-* Greetings API
-  * GET [http://localhost:8080](http://localhost:8080): Shows greeting with configured default values
-  * GET [http://localhost:8080?message=test](http://localhost:8080?message=test): Shows greeting with custom message
-  * GET [http://localhost:8080/admin](http://localhost:8080/admin): Shows the administrative section (only accessible by admin user)
-* Actuator API
-  * Exposes all available [actuator endpoints](http://localhost:8080/actuator) of Spring Boot (including sensitive ones)
-  
-All APIs are secured by requiring either basic authentication or form based login.
-
-Login credentials are: 
-
-* Standard user: _user_ / _secret_
-* Admin user: _admin_ / _secret_  
+For details on the demo application see [initial demo application](../initial-spring-boot-app/README.md).
   
 ## Deploy the application
 
@@ -81,38 +66,13 @@ Finally stop the running container by using the following command:
 docker stop unsafe-deploy
 ```
 
-## Sample command client requests
+## Deploy the application using unsafe defaults
 
-### Httpie
-
-This should give a 401:
+Now to deploy our application use these commands:
 
 ```bash
-http localhost:8080
+kubectl apply -f ./deploy-initial.yaml
+kubectl apply -f ./service-initial.yaml
 ```
 
-This should return the default greeting:
-
-```bash
-http --auth user:secret localhost:8080
-```
-
-This should return a custom greeting:
-
-```bash
-http --auth user:secret localhost:8080 "message==Test"
-```
-
-### Curl
-
-This should return the default greeting:
-
-```bash
-curl --user user:secret http://localhost:8080
-```
-
-This should return a custom greeting:
-
-```bash
-curl --user user:secret http://localhost:8080\?message\=Test
-```
+Now this should successfully be deployed (even if the container is running as root which is bad).
