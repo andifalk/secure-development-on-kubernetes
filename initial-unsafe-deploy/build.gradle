@@ -5,6 +5,7 @@ plugins {
     id 'java'
     id "com.github.spotbugs" version "2.0.0"
     id 'org.owasp.dependencycheck' version "5.0.0"
+    id 'com.palantir.docker' version '0.22.1'
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -39,6 +40,11 @@ spotbugs {
 tasks.withType(SpotBugsTask) {
     reports.xml.enabled = false
     reports.html.enabled = true
+}
+
+docker {
+    name 'andifalk/initial-unsafe-deploy:latest'
+    files bootJar.archiveFile
 }
 
 check.dependsOn dependencyCheckAnalyze
