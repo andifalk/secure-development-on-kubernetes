@@ -12,7 +12,6 @@ Slides und Demos zum Talk "Kubernetes und Container - Aber Sicher!"
 * [Unsafe Kubernetes Deployment](initial-unsafe-deploy/README.md)
 * [Safe Kubernetes Deployment (Pod Security Context)](deploy-security-context/README.md)
 * [Safe Kubernetes Deployment (Pod Security Policy)](deploy-pod-security-policy/README.md)
-* Kubernetes Secrets
 
 ## Provisioning
 
