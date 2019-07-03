@@ -191,7 +191,6 @@
                     </section>
                 </section>
 
-
                 <!-- Live Demo Part -->
                 <section>
                     <section data-background="images/novatec_title_back.png">
@@ -236,17 +235,8 @@
                         </p>
                     </section>
                     <section>
-                        <h1>Say no to Root</h1>
-                        <p><em>USER</em> directive in Dockerfile</p>
-                        <p>
-                            <small>
-                                <a href="https://opensource.com/article/18/3/just-say-no-root-containers">Just say no to root containers</a><br>
-                            </small>
-                        </p>
-                    </section>
-                    <section>
                         <h3>Say no to Root</h3>
-                        <p>Dockerfile</p>
+                        <p><em>USER</em> directive in Dockerfile</p>
                         <pre><code class="hljs bash" data-trim>
                             FROM openjdk:11-jre-slim
                             COPY hello-spring-kubernetes-1.0.0-SNAPSHOT.jar app.jar
@@ -256,6 +246,11 @@
                             USER 1002
                             ENTRYPOINT java -jar /app.jar
                         </code></pre>
+                        <p>
+                            <small>
+                                <a href="https://opensource.com/article/18/3/just-say-no-root-containers">Just say no to root containers</a><br>
+                            </small>
+                        </p>
                     </section>
                     <section>
                         <h2>Keep being secure</h2>
@@ -272,17 +267,39 @@
                         </p>
                     </section>
                     <section>
+                        <h3>Kubernetes Security</h3>
+                        <p>
+                            <img src="images/appsecurity_kubernetes_step3.png" class="plain" width="100%">
+                        </p>
+                    </section>
+                    <section>
                         <h3>Demo Time - Show me the Code</h3>
                         <p>
                             <small>
-                                <a href="https://github.com/andifalk/kubernetes-container-aber-sicher/tree/master/initial-spring-boot-app">Demo-Code: Initial Spring Boot Application</a>
+                                <a href="https://github.com/andifalk/kubernetes-container-aber-sicher/tree/master/initial-unsafe-deploy">Demo-Code: Initial Unsafe K8s Deploy</a>
                             </small>
                         </p>
                     </section>
                     <section>
-                        <h3>Kubernetes Security</h3>
+                        <h3>Resource Limits</h3>
+                        <pre><code class="hljs yaml" data-trim>
+                            spec:
+                              ...
+                              containers:
+                                resources:
+                                  limits:
+                                    cpu: "1"
+                                    memory: "768Mi"
+                                  requests:
+                                    cpu: "0.5"
+                                    memory: "512Mi"
+                              ...
+                        </code></pre>
                         <p>
-                            <img src="images/appsecurity_kubernetes_step3.png" class="plain" width="100%">
+                            <small>
+                                <a href="https://kubernetes.io/docs/tasks/configure-pod-container/assign-memory-resource/">Memory Resource</a><br>
+                                <a href="https://kubernetes.io/docs/tasks/configure-pod-container/assign-cpu-resource/">CPU resource</a><br>
+                            </small>
                         </p>
                     </section>
                     <section>
@@ -295,6 +312,100 @@
                                 <a href="https://opensource.com/article/18/3/just-say-no-root-containers">Just say no to root containers</a><br>
                                 <a href="https://kubernetes.io/docs/concepts/policy/pod-security-policy/">Pod Security Policy</a><br>
                                 <a href="https://kubernetes.io/docs/tasks/configure-pod-container/security-context/">Pod Security Context</a>
+                            </small>
+                        </p>
+                    </section>
+                    <section>
+                        <h3>Pod Security Context</h3>
+                        <pre><code class="hljs yaml" data-trim>
+                            spec:
+                              securityContext:
+                                runAsNonRoot: true
+                              containers:
+                                ...
+                                securityContext:
+                                  allowPrivilegeEscalation: false
+                                  privileged: false
+                                  runAsNonRoot: true
+                                  capabilities:
+                                    drop:
+                                      - ALL
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>Demo Time - Show me the Code</h3>
+                        <p>
+                            <small>
+                                <a href="https://github.com/andifalk/kubernetes-container-aber-sicher/tree/master/deploy-security-context">Demo-Code: Safe Deploy using Pod Security Context</a>
+                            </small>
+                        </p>
+                    </section>
+                    <section>
+                        <h3>Pod Security Policy</h3>
+                        <pre><code class="hljs yaml" data-trim>
+                            apiVersion: policy/v1beta1
+                            kind: PodSecurityPolicy
+                            metadata:
+                              name: no-root-policy
+                            spec:
+                              privileged: false
+                              allowPrivilegeEscalation: false
+                              requiredDropCapabilities:
+                                - ALL
+                              runAsUser:
+                                rule: 'MustRunAsNonRoot'
+                              ...
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>Role to authorize Policy</h3>
+                        <pre><code class="hljs yaml" data-trim>
+                            apiVersion: rbac.authorization.k8s.io/v1
+                            kind: Role
+                            metadata:
+                              name: no-root-policy-role
+                              namespace: default
+                            rules:
+                              - apiGroups: ['policy']
+                                resources: ['podsecuritypolicies']
+                                verbs:     ['use']
+                                resourceNames:
+                                  - no-root-policy
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>Service Account</h3>
+                        <pre><code class="hljs yaml" data-trim>
+                            apiVersion: v1
+                            kind: ServiceAccount
+                            metadata:
+                              name: deploy-pod-security-policy
+                              namespace: default
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>Bind Service Account to role</h3>
+                        <pre><code class="hljs yaml" data-trim>
+                            apiVersion: rbac.authorization.k8s.io/v1
+                            kind: RoleBinding
+                            metadata:
+                              name: deploy-pod-security-policy
+                              namespace: default
+                            roleRef:
+                              kind: Role
+                              name: no-root-policy-role
+                              apiGroup: rbac.authorization.k8s.io
+                            subjects:
+                              - kind: ServiceAccount
+                                name: deploy-pod-security-policy
+                                namespace: default
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>Demo Time - Show me the Code</h3>
+                        <p>
+                            <small>
+                                <a href="https://github.com/andifalk/kubernetes-container-aber-sicher/tree/master/deploy-pod-security-policy">Demo-Code: Safe Deploy using Pod Security Policy</a>
                             </small>
                         </p>
                     </section>
@@ -333,14 +444,6 @@
                                 <a href="https://www.fluentd.org/">Fluentd Log Collector</a><br>
                                 <a href="https://kubernetes.io/docs/tasks/debug-application-cluster/audit/">Kubernetes Auditing</a><br>
                                 <a href="https://prometheus.io/">Prometheus</a><br>
-                            </small>
-                        </p>
-                    </section>
-                    <section>
-                        <h3>Demo Time - Show me the Code</h3>
-                        <p>
-                            <small>
-                                <a href="https://github.com/andifalk/kubernetes-container-aber-sicher/tree/master/initial-spring-boot-app">Demo-Code: Initial Spring Boot Application</a>
                             </small>
                         </p>
                     </section>
@@ -419,6 +522,24 @@
                         </p>
                     </section>
                     <section>
+                        <h3>Pay attention to Actuator</h3>
+                        <p>http://localhost:8080/actuator/env</p>
+                        <pre><code class="hljs json" data-trim>
+                            {
+                                  "name": "applicationConfig: ...",
+                                  "properties": {
+                                    "greet.my-sec": {
+                                      "value": "geheim",
+                                      "origin": "class path resource ..."
+                                    },
+                                    "greet.password": {
+                                      "value": "******",
+                                      "origin": "class path resource ..."
+                                    }
+                            }
+                        </code></pre>
+                    </section>
+                    <section>
                         <h3>Encryption Layers</h3>
                         <p>
                             <img src="images/encryption_layers.png" class="plain" width="80%">
@@ -439,7 +560,8 @@
                     </section>
                     <section>
                         <h3>Cloud KMS</h3>
-                        <h5><a href="https://azure.microsoft.com/en-us/services/key-vault/">Azure Key Vault</a></h5>
+                        <h5><a href="https://github.com/Azure/kubernetes-kms">Azure Key Vault KMS</a></h5>
+                        <h5><a href="https://github.com/Azure/kubernetes-keyvault-flexvol">Azure Key Vault Flex Volume</a></h5>
                         <h5><a href="https://cloud.google.com/kms/">Google Cloud KMS</a></h5>
                         <h5><a href="https://aws.amazon.com/kms/">AWS KMS</a></h5>
                         <h5><a href="https://github.com/oracle/kubernetes-vault-kms-plugin">Hashicorp Vault KMS Plugin</a></h5>
