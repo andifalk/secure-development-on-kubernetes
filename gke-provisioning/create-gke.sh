@@ -1,10 +1,5 @@
 #!/bin/sh
 
-# please replace "pa-afa-kubernetes" with your own project on GCP
-
-gcloud auth login
-gcloud config set project pa-afa-kubernetes
-
 # create kubernetes cluster using encryption at rest and application level encryption
 gcloud beta container --project "pa-afa-kubernetes" clusters create "demo-gke" --zone "europe-west3-a" \
 --no-enable-basic-auth --cluster-version "1.12.8-gke.10" --machine-type "n1-standard-2" --image-type "COS" \
