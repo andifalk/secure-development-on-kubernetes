@@ -61,6 +61,12 @@
                         </small></p>
                         <p><img class="plain" src="images/novatec_logo_big.png" width="40%"></p>
                     </section>
+                    <section data-background="images/novatec_at_a_glance_full.png" data-background-size="80%">
+                    </section>
+                    <section data-background="images/secure_scrum.png" data-background-size="68%">
+                    </section>
+                    <section data-background-color="white" data-background="images/security_training_offering.png" data-background-size="70%">
+                    </section>
                 </section>
 
                 <section>
@@ -157,6 +163,57 @@
                         <p>
                             <img src="images/docker_security.png" class="plain" width="80%">
                         </p>
+                    </section>
+                    <section>
+                        <h3>Kernel Namespaces</h3>
+                        <ul>
+                            <li>Process ID (pid)</li>
+                            <li>Network (net)</li>
+                            <li>Filesystem/mount (mnt)</li>
+                            <li>Inter-process Communication (ipc)</li>
+                            <li>User (user)</li>
+                            <li>UTS (hostname)</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Control Groups (cgroups)</h3>
+                        <p>It's all about resources</p>
+                        <ul>
+                            <li>CPU</li>
+                            <li>Memory</li>
+                            <li>Devices</li>
+                            <li>Processes</li>
+                            <li>Network</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Root Capabilities</h3>
+                        <ul>
+                            <li>CAP_CHOWN</li>
+                            <li>CAP_NET_BIND_SERVICE</li>
+                            <li>CAP_NET_ADMIN</li>
+                            <li>...</li>
+                        </ul>
+                        <pre><code class="hljs bash" data-trim>
+                            docker run --cap-drop=ALL --cap-add=NET_BIND_SERVICE
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>Mandatory Access Control</h3>
+                        <ul>
+                            <li>AppArmor</li>
+                            <li>SELinux</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Secure Computing Mode (seccomp)</h3>
+                        <p>Deny critical system calls by default</p>
+                        <ul>
+                            <li>reboot</li>
+                            <li>mount</li>
+                            <li>swapon</li>
+                            <li>...</li>
+                        </ul>
                     </section>
                     <section>
                         <h3>Container Images</h3>
@@ -356,6 +413,12 @@
                                 rule: 'MustRunAsNonRoot'
                               ...
                         </code></pre>
+                    </section>
+                    <section>
+                        <h3>Pod Security Policy</h3>
+                        <p>Still in Beta / Preview !!</p>
+                        <p class="fragment">and...</p>
+                        <p class="fragment">...this is where <strong>RBAC</strong> comes into play</p>
                     </section>
                     <section>
                         <h3>Role to authorize Policy</h3>
@@ -566,6 +629,7 @@
                         <h5><a href="https://aws.amazon.com/kms/">AWS KMS</a></h5>
                         <h5><a href="https://github.com/oracle/kubernetes-vault-kms-plugin">Hashicorp Vault KMS Plugin</a></h5>
                     </section>
+                    <!--
                     <section data-background="images/novatec_title_back.png">
                         <h1 style="color: white">Spring Cloud Kubernetes</h1>
                         <p>
@@ -583,9 +647,6 @@
                             <li>SecretsPropertySource</li>
                             <li>Kubernetes Ecosystem Awareness</li>
                             <li>Kubernetes Profile</li>
-                            <ul>
-                                <li><a href="https://github.com/spring-cloud/spring-cloud-kubernetes/issues/347">Issue 347: Profile Specific Configuration Not Loaded</a></li>
-                            </ul>
                             <li>Pod Health Indicator</li>
                         </ul>
                     </section>
@@ -596,7 +657,7 @@
                                 <a href="https://github.com/andifalk/kubernetes-container-aber-sicher/tree/master/initial-spring-boot-app">Demo-Code: Initial Spring Boot Application</a>
                             </small>
                         </p>
-                    </section>
+                    </section>-->
                 </section>
 
                 <!-- The End -->
@@ -607,11 +668,10 @@
                     <section>
                         <h2>Summary / Key Insights</h2>
                         <ul>
-                            <li>Configs, Secrets & Discovery the &ldquo;Spring Way&rdquo;
-                                <br>-- More to come: Istio & Helm awareness, ...</li>
+                            <li>Docker runs on Host using Linux Namespaces</li>
+                            <li>Say <span style="color: red">NO</span> to root on K8s</li>
                             <li><span style="color: red">&ldquo;Least privilege&rdquo;</span> for service accounts</li>
                             <li>Ensure your secrets are <span style="color: red">encrypted</span> in K8s</li>
-                            <li>Say <span style="color: red">NO</span> to root on K8s</li>
                             <li>Keep K8s and container images <span style="color: red">up-to-date</span></li>
                         </ul>
                     </section>
