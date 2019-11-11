@@ -12,4 +12,4 @@ pluginManagement {
         }
     }
 }
-rootProject.name = 'deploy-pod-security-policy'
+rootProject.name = 'step1-initial-spring-boot-app'

@@ -12,4 +12,4 @@ pluginManagement {
         }
     }
 }
-rootProject.name = 'deploy-security-context'
+rootProject.name = 'step2-initial-unsafe-deploy'

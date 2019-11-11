@@ -7,9 +7,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 @EnableConfigurationProperties(GreetingConfiguration.class)
 @SpringBootApplication
-public class InitialSpringBootAppApplication {
+public class Step1App {
 
   public static void main(String[] args) {
-    SpringApplication.run(InitialSpringBootAppApplication.class, args);
+    SpringApplication.run(Step1App.class, args);
   }
 }

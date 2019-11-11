@@ -12,4 +12,4 @@ pluginManagement {
         }
     }
 }
-rootProject.name = 'initial-unsafe-deploy'
+rootProject.name = 'step4-deploy-pod-security-policy'

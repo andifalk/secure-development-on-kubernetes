@@ -14,8 +14,8 @@ pluginManagement {
 }
 rootProject.name = 'kubernetes-container-aber-sicher'
 
-include 'initial-spring-boot-app'
-include 'initial-unsafe-deploy'
-include 'deploy-security-context'
-include 'deploy-pod-security-policy'
+include 'step1-initial-spring-boot-app'
+include 'step2-initial-unsafe-deploy'
+include 'step3-deploy-security-context'
+include 'step4-deploy-pod-security-policy'
 
