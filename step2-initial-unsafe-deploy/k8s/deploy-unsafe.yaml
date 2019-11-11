@@ -18,7 +18,7 @@ spec:
         - image: andifalk/initial-unsafe-deploy:latest
           name: initial-unsafe-deploy
           imagePullPolicy: Always
-          livenessProbe:
+          readinessProbe:
             httpGet:
               path: /actuator/health
               port: 8080

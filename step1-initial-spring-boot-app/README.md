@@ -13,28 +13,22 @@ This application provides two REST APIs:
     
 ## Run the application
 
-Just start it by running _com.example.initial.app.Step1App_.
+Just start it by running _com.example.app.Step1App_.
 
 ## Sample command client requests
 
 ### Httpie
 
-This should give a 401:
+This should return the default greeting:
 
 ```bash
 http localhost:8080
 ```
 
-This should return the default greeting:
-
-```bash
-http --auth user:secret localhost:8080
-```
-
 This should return a custom greeting:
 
 ```bash
-http --auth user:secret localhost:8080 "message==Test"
+http localhost:8080 "message==Test"
 ```
 
 ### Curl
@@ -42,13 +36,13 @@ http --auth user:secret localhost:8080 "message==Test"
 This should return the default greeting:
 
 ```bash
-curl --user user:secret http://localhost:8080
+curl http://localhost:8080
 ```
 
 This should return a custom greeting:
 
 ```bash
-curl --user user:secret http://localhost:8080\?message\=Test
+curl http://localhost:8080\?message\=Test
 ```
 
 ## Sample browser requests
@@ -60,12 +54,6 @@ Try to display a popup via javascript:
 
 ```http request
 http://localhost:8080/?message=<script>alert('XSS')</script>
-```
-
-Try to read the JSESSION cookie:
-
-```http request
-http://localhost:8080/?message=<script>alert(document.cookie)</script> 
 ```
 
 Try to redirect to Google search via XSS:
@@ -80,9 +68,7 @@ defense mechanisms in place:
 * Input validation only permits maximum length of _30_ for url message parameter
 * Reflected greeting is output escaped (Html AND javascript)
 * Content-Type is set to _application/json_ 
-* Browser XSS filter is enabled via response header
-* Session cookie is not reachable via javascript (_http_only_)
 
-If you __disable__ all these precautions then you should see XSS working.
-
-### Please do not use this in productive code !!! 
+Note:  
+If you disable all these precautions then you should see XSS working.
+But please do __not disable__ these in productive code !!! 

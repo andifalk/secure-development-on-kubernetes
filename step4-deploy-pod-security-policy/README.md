@@ -3,7 +3,7 @@
 This deploys the demo application to Kubernetes using cluster-wide pod security policy
 to enforce that the docker container must run unprivileged using non-root user.
 
-For details on the demo application see [initial demo application](../initial-spring-boot-app/README.md).
+For details on the demo application see [initial demo application](../step1-initial-spring-boot-app).
   
 ## Deploy the application
 

@@ -2,7 +2,7 @@
 
 This deploys the demo application to Kubernetes using unsafe defaults.
 
-For details on the demo application see [initial demo application](../initial-spring-boot-app/README.md).
+For details on the demo application see [initial demo application](../step1-initial-spring-boot-app).
   
 ## Deploy the application
 
@@ -71,8 +71,8 @@ docker stop unsafe-deploy
 Now to deploy our application use these commands:
 
 ```bash
-kubectl apply -f ./deploy-initial.yaml
-kubectl apply -f ./service-initial.yaml
+kubectl apply -f ./deploy-unsafe.yaml
+kubectl apply -f ./service-unsafe.yaml
 ```
 
 Now this should successfully be deployed (even if the container is running as root which is bad).

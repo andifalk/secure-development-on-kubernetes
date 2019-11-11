@@ -1,4 +1,4 @@
 #!/bin/sh
 
-kubectl apply -f ./deploy-initial.yaml
-kubectl apply -f ./service-initial.yaml
+kubectl apply -f ./deploy-unsafe.yaml
+kubectl apply -f ./service-unsafe.yaml
