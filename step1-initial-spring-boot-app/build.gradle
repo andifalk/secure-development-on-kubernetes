@@ -4,7 +4,7 @@ plugins {
     id 'org.springframework.boot' version '2.2.1.RELEASE'
     id 'java'
     id "com.github.spotbugs" version "2.0.0"
-    id 'org.owasp.dependencycheck' version "5.2.2"
+    id 'org.owasp.dependencycheck' version "5.2.3"
 }
 
 apply plugin: 'io.spring.dependency-management'

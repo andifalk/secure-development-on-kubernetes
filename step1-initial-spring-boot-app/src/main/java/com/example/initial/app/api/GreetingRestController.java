@@ -33,8 +33,9 @@ public class GreetingRestController {
 
   @GetMapping("/")
   public ResponseEntity<String> greeting(
-      @RequestParam(name = "message") @Size(min = 1, max = 50) String message) {
-    return ResponseEntity.ok(Encode.forHtml(Encode.forJavaScript(String.format("%s %s", greetingConfiguration.getGreeting(), message))));
+          @RequestParam(name = "message") @Size(min = 1, max = 50) String message) {
+    return ResponseEntity.ok(Encode.forHtml(Encode.forJavaScript(String.format("%s %s",
+            greetingConfiguration.getGreeting(), message))));
   }
 
   @ExceptionHandler(ConstraintViolationException.class)

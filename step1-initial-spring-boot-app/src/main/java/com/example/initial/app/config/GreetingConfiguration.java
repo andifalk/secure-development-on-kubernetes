@@ -14,7 +14,7 @@ public class GreetingConfiguration {
 
   @NotBlank
   @Size(max = 50)
-  private String mySecret;
+  private String mySec;
 
   public String getGreeting() {
     return greeting;
@@ -24,12 +24,12 @@ public class GreetingConfiguration {
     this.greeting = greeting;
   }
 
-  public String getMySecret() {
-    return mySecret;
+  public String getMySec() {
+    return mySec;
   }
 
-  public void setMySecret(String mySecret) {
-    this.mySecret = mySecret;
+  public void setMySec(String mySec) {
+    this.mySec = mySec;
   }
 
 }

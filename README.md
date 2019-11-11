@@ -1,17 +1,18 @@
-# Kubernetes und Container - Aber Sicher!
+# Secure Development on Kubernetes
 
-Slides und Demos zum Talk "Kubernetes und Container - Aber Sicher!"
+This repository contains presentation slides and the complete live demo code 
+for the talk _Secure Development on Kubernetes_.
 
 ## Presentation
 
-[Presentation Slides (Online)](https://andifalk.github.io/kubernetes-container-aber-sicher)
+[Presentation Slides (PDF)](https://andifalk.github.io/kubernetes-container-aber-sicher)
 
 ## Demos
 
-* [Initial Spring Boot Application](initial-spring-boot-app/README.md)
-* [Unsafe Kubernetes Deployment](initial-unsafe-deploy/README.md)
-* [Safe Kubernetes Deployment (Pod Security Context)](deploy-security-context/README.md)
-* [Safe Kubernetes Deployment (Pod Security Policy)](deploy-pod-security-policy/README.md)
+* [Initial Spring Boot Application](step1-initial-spring-boot-app)
+* [Unsafe Kubernetes Deployment](step2-initial-unsafe-deploy)
+* [Safe Kubernetes Deployment (Pod Security Context)](step3-deploy-security-context)
+* [Safe Kubernetes Deployment (Pod Security Policy)](step4-deploy-pod-security-policy)
 
 ## Provisioning
 
