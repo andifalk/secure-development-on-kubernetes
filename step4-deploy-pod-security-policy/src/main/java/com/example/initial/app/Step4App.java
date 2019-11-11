@@ -7,9 +7,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 @EnableConfigurationProperties(GreetingConfiguration.class)
 @SpringBootApplication
-public class InitialUnsafeDeployApplication {
+public class Step4App {
 
   public static void main(String[] args) {
-    SpringApplication.run(InitialUnsafeDeployApplication.class, args);
+    SpringApplication.run(Step4App.class, args);
   }
 }
