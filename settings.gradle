@@ -12,7 +12,7 @@ pluginManagement {
         }
     }
 }
-rootProject.name = 'kubernetes-container-aber-sicher'
+rootProject.name = 'secure-development-on-kubernetes'
 
 include 'step1-initial-spring-boot-app'
 include 'step2-initial-unsafe-deploy'
