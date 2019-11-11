@@ -5,7 +5,7 @@ plugins {
     id 'java'
     id "com.github.spotbugs" version "2.0.1"
     id 'org.owasp.dependencycheck' version "5.2.3"
-    id 'com.palantir.docker' version '0.22.1'
+    id 'com.google.cloud.tools.jib' version '1.7.0'
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -42,12 +42,17 @@ tasks.withType(SpotBugsTask) {
     reports.html.enabled = true
 }
 
-docker {
-    name 'andifalk/deploy-pod-security-policy:latest'
-    files bootJar.archiveFile
+jib {
+    to {
+        image = 'andifalk/deploy-security-context-jib:latest'
+    }
+    container {
+        user = 1002
+    }
 }
 
 check.dependsOn dependencyCheckAnalyze
+tasks.build.dependsOn tasks.jib
 
 repositories {
     mavenCentral()

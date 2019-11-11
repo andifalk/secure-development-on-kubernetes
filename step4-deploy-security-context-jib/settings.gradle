@@ -12,11 +12,4 @@ pluginManagement {
         }
     }
 }
-rootProject.name = 'secure-development-on-kubernetes'
-
-include 'step1-initial-spring-boot-app'
-include 'step2-initial-unsafe-deploy'
-include 'step3-deploy-security-context'
-include 'step4-deploy-security-context-jib'
-include 'step5-deploy-pod-security-policy'
-
+rootProject.name = 'step4-deploy-security-context-jib'
