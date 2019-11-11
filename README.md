@@ -5,7 +5,7 @@ for the talk _Secure Development on Kubernetes_.
 
 ## Presentation
 
-[Presentation Slides (PDF)](https://andifalk.github.io/kubernetes-container-aber-sicher)
+[Presentation Slides (PDF)](https://github.com/andifalk/secure-development-on-kubernetes/raw/master/secure_kubernetes_presentation.pdf)
 
 ## Demos
 
@@ -14,7 +14,12 @@ for the talk _Secure Development on Kubernetes_.
 * [Safe Kubernetes Deployment (Pod Security Context)](step3-deploy-security-context)
 * [Safe Kubernetes Deployment (Pod Security Policy)](step4-deploy-pod-security-policy)
 
-## Provisioning
+## Kubernetes Provisioning
+
+In general you should be able to run all demos on current Kubernetes cluster versions
+supporting pod security policies.
+
+### Google GKE
 
 The [gke-provisioning](gke-provisioning) directory contains
 scripts to create a kubernetes cluster on google cloud.
@@ -27,4 +32,3 @@ to GCP.
 gcloud auth login
 gcloud config set project [project]
 ```
-
