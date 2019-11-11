@@ -6,22 +6,14 @@ all security patterns when deploying and running this in Kubernetes.
 This application provides two REST APIs:
 
 * Greetings API
-  * GET [http://localhost:8080](http://localhost:8080): Shows greeting with configured default values
+  * GET [http://localhost:8080](http://localhost:8080): Shows greeting with configured default message
   * GET [http://localhost:8080?message=test](http://localhost:8080?message=test): Shows greeting with custom message
-  * GET [http://localhost:8080/admin](http://localhost:8080/admin): Shows the administrative section (only accessible by admin user)
 * Actuator API
   * Exposes all available [actuator endpoints](http://localhost:8080/actuator) of Spring Boot (including sensitive ones)
-  
-All APIs are secured by requiring either basic authentication or form based login.
-
-Login credentials are: 
-
-* Standard user: _user_ / _secret_
-* Admin user: _admin_ / _secret_  
-  
+    
 ## Run the application
 
-Just start it by running _com.example.initial.app.InitialSpringBootApplication_.
+Just start it by running _com.example.initial.app.Step1App_.
 
 ## Sample command client requests
 
