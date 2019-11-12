@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hello-root
+  name: hello-root
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-root
+  template:
+    metadata:
+      labels:
+        app: hello-root
+    spec:
+      containers:
+      - image: andifalk/hello-root:latest
+        name: hello-root
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      restartPolicy: Always

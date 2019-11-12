@@ -12,10 +12,4 @@ pluginManagement {
         }
     }
 }
-rootProject.name = 'secure-development-on-kubernetes'
-
-include 'step1-hello-spring-boot'
-include 'step2-hello-root'
-include 'step3-hello-rootless'
-include 'step4-hello-rootless-jib'
-
+rootProject.name = 'step3-hello-rootless'
