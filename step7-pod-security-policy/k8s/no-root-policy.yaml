@@ -5,6 +5,7 @@ metadata:
   annotations:
     seccomp.security.alpha.kubernetes.io/allowedProfileNames: '*'
 spec:
+  readOnlyRootFilesystem: true
   privileged: false
   allowPrivilegeEscalation: false
   requiredDropCapabilities:

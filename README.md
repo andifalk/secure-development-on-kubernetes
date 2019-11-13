@@ -70,6 +70,13 @@ gcloud auth login
 gcloud config set project [project]
 ```
 
+### Trivy for Image Scan
+
+As part of the demos we will also scan our container images for OS and Application vulnerabilities
+using an open source tool named [Trivy](https://github.com/aquasecurity/trivy).
+
+For installation instructions just browse to the [Trivy](https://github.com/aquasecurity/trivy) website.
+
 ## Demos
 
 ### Iteration 1: Application Security

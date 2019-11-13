@@ -3,78 +3,61 @@
 This deploys the demo application to Kubernetes using cluster-wide pod security policy
 to enforce that the docker container must run unprivileged using non-root user.
 
-For details on the demo application see [initial demo application](../step1-initial-spring-boot-app).
+For details on the demo application see [hello spring boot application](../step1-hello-spring-boot).
   
 ## Deploy the application
 
 The corresponding container image is pulled 
-from [andifalk/deploy-pod-security-policy](https://cloud.docker.com/repository/registry-1.docker.io/andifalk/deploy-pod-security-policy) docker hub repository.
+from [andifalk/hello-rootless-jib](https://cloud.docker.com/repository/registry-1.docker.io/andifalk/hello-rootless-jib) 
+docker hub repository.
 
-The application is deployed using the following deployment yaml file _k8s/deploy-pod-security-policy.yaml_:
+The application is deployed using the following deployment yaml file _k8s/deploy.yaml_:
 
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: deploy-pod-security-policy
-  name: deploy-pod-security-policy
+    app: hello-rootless
+  name: hello-rootless
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: deploy-pod-security-policy
+      app: hello-rootless
   template:
     metadata:
       labels:
-        app: deploy-pod-security-policy
+        app: hello-rootless
     spec:
-      serviceAccountName: deploy-pod-security-policy
+      serviceAccountName: no-root-policy-serviceaccount
       containers:
-        - image: andifalk/deploy-pod-security-policy:latest
-          name: deploy-pod-security-policy
-          imagePullPolicy: Always
+        - image: andifalk/hello-rootless-jib:latest
+          name: hello-rootless
           resources:
             limits:
               cpu: "1"
-              memory: "768Mi"
+              memory: "512Mi"
             requests:
               cpu: "0.5"
-              memory: "512Mi"
-          livenessProbe:
+              memory: "256Mi"
+          readinessProbe:
             httpGet:
               path: /actuator/health
               port: 8080
             initialDelaySeconds: 5
-            periodSeconds: 5    
+            periodSeconds: 5
+          volumeMounts:
+            - name: tmp-volume
+              mountPath: /tmp
       restartPolicy: Always
+      volumes:
+        - name: tmp-volume
+          emptyDir: {}
 ```
 
 Please note that the all security context settings have been removed here as the same will be enforced by a 
 cluster-wide pod security policy instead later.
-
-Now again you can prove that this container does NOT run with root by using these commands:
-
-```bash
-docker container run --rm --detach --name deploy-sec-policy \
---publish 8080:8080 andifalk/deploy-pod-security-policy:latest
-docker exec deploy-sec-policy whoami
-```
-
-This should return the following user information (it really is NO root any more)
-
-```bash
-appuser
-```
-
-You should also be able to reach the dockerized application 
-via http://localhost:8080.
-
-Finally stop the running container by using the following command:
-
-```bash
-docker stop deploy-sec-policy
-```
 
 ## Deploy the application using Pod Security Policy
 
@@ -96,6 +79,7 @@ metadata:
   annotations:
     seccomp.security.alpha.kubernetes.io/allowedProfileNames: '*'
 spec:
+  readOnlyRootFilesystem: true
   privileged: false
   allowPrivilegeEscalation: false
   requiredDropCapabilities:
@@ -146,7 +130,7 @@ After this we have to create a new service account (which we will use in our dep
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: deploy-pod-security-policy
+  name: no-root-policy-serviceaccount
   namespace: default
 ```
 
@@ -156,7 +140,7 @@ Now we can finally create a role binding between the policy role and the service
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: deploy-pod-security-policy
+  name: no-root-policy-role-binding
   namespace: default
 roleRef:
   kind: Role
@@ -164,16 +148,16 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 subjects:
   - kind: ServiceAccount
-    name: deploy-pod-security-policy
+    name: no-root-policy-serviceaccount
     namespace: default
 ```
 
 Now this has to be applied to K8s:
 
 ```bash
-kubectl apply -f ./deploy-pod-security-policy-serviceaccount.yaml
+kubectl apply -f ./no-root-policy-serviceaccount.yaml
 kubectl apply -f ./no-root-policy-role.yaml
-kubectl apply -f ./deploy-pod-security-policy-rolebinding.yaml
+kubectl apply -f ./no-root-policy-role-binding.yaml
 ```
 
 Now we can update the kubernetes cluster to enable pod security policy admission controller:
@@ -185,8 +169,8 @@ Now we can update the kubernetes cluster to enable pod security policy admission
 After the update is finished (takes some minutes) we can deploy our application:
 
 ```bash
-kubectl apply -f ./deploy-pod-security-policy.yaml
-kubectl apply -f ./service-pod-security-policy.yaml
+kubectl apply -f ./deploy.yaml
+kubectl apply -f ./service.yaml
 ```
 
 Now this should successfully be deployed as it is compliant and authorized for the new pod security policy.

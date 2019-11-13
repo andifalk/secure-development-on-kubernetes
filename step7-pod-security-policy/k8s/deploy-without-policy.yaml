@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hello-rootless-no-policy
+  name: hello-rootless-no-policy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-rootless-no-policy
+  template:
+    metadata:
+      labels:
+        app: hello-rootless-no-policy
+    spec:
+      containers:
+        - image: andifalk/hello-rootless-jib:latest
+          name: hello-rootless-no-policy
+          resources:
+            limits:
+              cpu: "1"
+              memory: "512Mi"
+            requests:
+              cpu: "0.5"
+              memory: "256Mi"
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          volumeMounts:
+            - name: tmp-volume
+              mountPath: /tmp
+      restartPolicy: Always
+      volumes:
+        - name: tmp-volume
+          emptyDir: {}

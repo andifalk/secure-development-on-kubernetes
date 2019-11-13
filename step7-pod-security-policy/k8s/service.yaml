@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: deploy-pod-security-policy
+  name: hello-rootless
 spec:
   selector:
-    app: deploy-pod-security-policy
+    app: hello-rootless
   ports:
-  - port: 8083
+  - port: 8081
     targetPort: 8080
   type: LoadBalancer
