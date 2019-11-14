@@ -4,7 +4,14 @@ This demo builds a standard docker image from the demo application just using a 
 For details on the demo application see [hello spring boot application](../step1-hello-spring-boot).
 
 When using defaults for building a container image the container will run using
-the root user by default.
+the root user by default:
+
+```dockerfile
+FROM openjdk:11-jre-slim
+COPY step2-hello-root-1.0.0-SNAPSHOT.jar app.jar
+EXPOSE 8080
+ENTRYPOINT java -jar /app.jar
+```
   
 You can prove this by using these commands:
 
