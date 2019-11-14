@@ -31,7 +31,7 @@ docker stop hello-root
 
 ## Check image for Vulnerabilities
 
-Now we can check our image for vulnerabilities with high and cxritical severities 
+Now we can check our image for vulnerabilities with high and critical severities 
 using this command:
 
 ```bash

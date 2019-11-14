@@ -1,80 +1,29 @@
-# Safe K8s Deployment
+# Non-Root Docker Container
 
-This deploys the demo application to Kubernetes using pod security context
-to enforce that the docker container must run unprivileged using non-root user.
+This demo builds an improved docker image from the demo application just using a standard _Dockerfile_.
+For details on the demo application see [hello spring boot application](../step1-hello-spring-boot).
 
-For details on the demo application see [initial demo application](../step1-initial-spring-boot-app).
-  
-## Deploy the application
+This time we configure a non-root user in the _Dockerfile_ to build a container image that will run using
+without the root user.
 
-The corresponding container image is pulled 
-from [andifalk/deploy-security-context](https://cloud.docker.com/repository/registry-1.docker.io/andifalk/deploy-security-context) docker hub repository.
-
-The application is deployed using the following deployment yaml file _k8s/deploy-security-context.yaml_:
-
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
-    app: deploy-security-context
-  name: deploy-security-context
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: deploy-security-context
-  template:
-    metadata:
-      labels:
-        app: deploy-security-context
-    spec:
-      securityContext:
-        runAsNonRoot: true
-      containers:
-        - image: andifalk/deploy-security-context:latest
-          name: deploy-security-context
-          imagePullPolicy: Always
-          resources:
-            limits:
-              cpu: "1"
-              memory: "768Mi"
-            requests:
-              cpu: "0.5"
-          securityContext:
-            allowPrivilegeEscalation: false
-            privileged: false
-            runAsNonRoot: true
-            capabilities:
-              drop:
-                - ALL
-          livenessProbe:
-            httpGet:
-              path: /actuator/health
-              port: 8080
-            initialDelaySeconds: 5
-            periodSeconds: 5    
-      restartPolicy: Always
+```dockerfile
+FROM openjdk:11-jre-slim
+COPY step3-hello-rootless-1.0.0-SNAPSHOT.jar app.jar
+EXPOSE 8080
+RUN addgroup --system --gid 1002 app && adduser --system --uid 1002 --gid 1002 appuser
+USER 1002
+ENTRYPOINT java -jar /app.jar
 ```
-
-Please note that the container is not allowed to run as root any more!
-
-There is also a specification for resource limits 
-(the container is only allowed to access the given cpu and memory).
-
-To achieve the best results for resource limiting you have to use Java 11. Earlier
-versions of Java (9, 10) provide special command line arguments to enable the same functionality.  
-Java 8, 7 or earlier do have issues regarding resource limits !
-
-Now you can prove that this container does NOT run with root by using these commands:
+  
+You can prove this by using these commands:
 
 ```bash
-docker container run --rm --detach --name deploy-sec-ctx \
---publish 8080:8080 andifalk/deploy-security-context:latest
-docker exec deploy-sec-ctx whoami
+docker container run --rm --detach --name hello-rootless \
+-p 8080:8080 andifalk/hello-rootless:latest
+docker exec hello-rootless whoami
 ```
 
-This should return the following user information (it really is NO root any more)
+This should return the following user information (it should not be root any more)
 
 ```bash
 appuser
@@ -86,16 +35,14 @@ via http://localhost:8080.
 Finally stop the running container by using the following command:
 
 ```bash
-docker stop deploy-sec-ctx
+docker stop hello-rootless
 ```
 
-## Deploy the application using Pod Security Context
+## Check image for Vulnerabilities
 
-Now to deploy our application use these commands:
+Now we can check our image for vulnerabilities with high and critical severities 
+using this command:
 
 ```bash
-kubectl apply -f ./deploy-security-context.yaml
-kubectl apply -f ./service-security-context.yaml
+trivy --clear-cache --severity HIGH,CRITICAL andifalk/hello-rootless:latest
 ```
-
-Now this should successfully be deployed as the container is non-root and therefore is compliant to the pod security context.
