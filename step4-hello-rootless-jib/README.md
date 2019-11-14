@@ -3,7 +3,7 @@
 This demo again builds an improved docker image from the demo application.
 For details on the demo application see [hello spring boot application](../step1-hello-spring-boot).
 
-But this time instead of using a _Dockerfile_ we will use [Google JIB]() to build the container image.
+But this time instead of using a _Dockerfile_ we will use [Google JIB](https://github.com/GoogleContainerTools/jib) to build the container image.
 With JIB you even can build a container image without a docker daemon installed on your machine. Additionally
 building images repeatedly is much faster as JIB optimizes this to the typical development flow so that only the application code changes
 and no dependencies.
@@ -36,8 +36,8 @@ docker container run --rm --detach --name hello-rootless-jib \
 docker exec hello-rootless-jib whoami
 ```
 
-This time this should report an error as in the distroless image (used by JIB as default) there is no shell and
-no whoami command installed.
+This time this should report an error as in the [distroless image](https://github.com/GoogleContainerTools/distroless) 
+- as used by JIB as default - there is no shell and no _whoami_ command installed.
 
 You should also be able to reach the dockerized application 
 via http://localhost:8080.
