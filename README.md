@@ -77,6 +77,13 @@ using an open source tool named [Trivy](https://github.com/aquasecurity/trivy).
 
 For installation instructions just browse to the [Trivy](https://github.com/aquasecurity/trivy) website.
 
+### Kubeaudit for Kubernetes Security Audits
+
+As part of the demos we will also check our Kubernetes for security issues like container running
+with root rights using an open source tool named [Kubeaudit](https://github.com/Shopify/kubeaudit).
+
+For installation instructions just browse to the [Kubeaudit](https://github.com/Shopify/kubeaudit) website.
+
 ## Demos
 
 ### Iteration 1: Application Security
@@ -91,6 +98,6 @@ For installation instructions just browse to the [Trivy](https://github.com/aqua
 
 ### Iteration 3: Kubernetes Security
 
-* [Initial Unsafe Kubernetes Deployment](step5-initial-unsafe-deploy)
-* [Safe Kubernetes Deployment (Pod Security Context)](step3-deploy-security-context)
+* [Initial Unsafe Kubernetes Deployment](step5-initial-k8s-deploy)
+* [Safe Kubernetes Deployment (Pod Security Context)](step6-pod-security-context)
 * [Safe Kubernetes Deployment (Pod Security Policy)](step7-pod-security-policy)
