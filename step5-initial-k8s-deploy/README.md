@@ -52,27 +52,15 @@ Just deploy it by typing ```kubectl apply -f ./deploy.yaml``` in directory _k8s_
 Please note that the container is running as root by default and kubernetes
 also does not prohibit this by default!
 
-Now you can prove that this container does run with root by using these commands.  
-First you need to get the running pod name:
+Now you can prove that this container does run with root by using a tool like [kubeaudit](https://github.com/Shopify/kubeaudit).
 
 ```bash
-kubectl get pods
+kubeaudit nonroot -n default
 ```
 
 This should result in an output similar to this:
 ```
-NAME                          READY   STATUS    RESTARTS   AGE
-hello-root-65dcb78896-qg84w   1/1     Running   0          7m18s
-```
-
-Now just use this pod name to check which user is used for executing the container inside the pod:
-
-```bash
-kubectl exec hello-root-65dcb78896-qg84w whoami
-```
-
-This should return the following user information (should be root)
-
-```bash
-root
+INFO[0000] Not running inside cluster, using local config 
+ERRO[0000] RunAsNonRoot is not set in ContainerSecurityContext, which results in root user being allowed!  Container=hello-root...
+ERRO[0000] RunAsNonRoot is not set in ContainerSecurityContext, which results in root user being allowed!  Container=hello-root...
 ```

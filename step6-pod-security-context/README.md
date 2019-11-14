@@ -69,9 +69,10 @@ Please note that the container is not allowed to run as root any more!
 There is also a specification for resource limits 
 (the container is only allowed to access the given cpu and memory).
 
-To achieve the best results for resource limiting you have to use Java 11. Earlier
-versions of Java (9, 10) provide special command line arguments to enable the same functionality.  
-Java 8, 7 or earlier do have issues regarding resource limits !
+For java this only works with container aware JDK versions like OpenJDK 8u192 or above.
+To achieve the best results for resource limiting you have to use Java 11. 
+With using older java versions the java vm inside the container will just grab the whole memory and
+cpu resources of the host system and will probably be just killed by Kubernetes. 
 
 Please note that the container is running using a non-root user now and kubernetes
 also does enforce a non-root user now!
@@ -86,3 +87,20 @@ kubectl apply -f ./service.yaml
 ```
 
 Now this should successfully be deployed as the container is non-root and therefore is compliant to the pod security context.
+
+Now you can prove that this container does not run with root by using [kubeaudit](https://github.com/Shopify/kubeaudit) again.
+
+```bash
+kubeaudit nonroot -n default
+```
+
+This time only the info line should appear in the result:
+```
+INFO[0000] Not running inside cluster, using local config 
+```
+
+You can also check for a lot of other security relevant things by using:
+
+```bash
+kubeaudit all -n default
+```

@@ -10,6 +10,9 @@ This application provides two REST APIs:
   * GET [http://localhost:8080?message=test](http://localhost:8080?message=test): Shows greeting with custom message
 * Actuator API
   * Exposes all available [actuator endpoints](http://localhost:8080/actuator) of Spring Boot (including sensitive ones)
+
+The application is kept simple to focus on the security parts instead of having to describe
+a complex use case model.
     
 ## Run the application
 
@@ -72,3 +75,10 @@ defense mechanisms in place:
 Note:  
 If you disable all these precautions then you should see XSS working.
 But please do __not disable__ these in productive code !!! 
+
+## Build process
+
+The gradle build for this application includes specific security relevant parts:
+
+* SpotBugs (with Security Add-On): Automatically does static code analysis for security issues
+* OWASP Dependency Check: Automatically checks all gradle dependencies for known vulnerabilities
