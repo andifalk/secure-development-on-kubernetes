@@ -38,12 +38,6 @@ spec:
             port: 8080
           initialDelaySeconds: 5
           periodSeconds: 5
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 8080
-          initialDelaySeconds: 5
-          periodSeconds: 5
       restartPolicy: Always
 ```
 
