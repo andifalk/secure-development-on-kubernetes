@@ -52,9 +52,9 @@ k3s-uninstall.sh
 To use all features of an enterprise grade Kubernetes cluster you have to go into the cloud and use
 one of the well known providers:
 
-* Microsoft Azure with AKS
-* Amazon AWS with EKS
-* Google Cloud with GKE
+* Microsoft Azure with [AKS](https://azure.microsoft.com/en-us/services/kubernetes-service)
+* Amazon AWS with [EKS](https://aws.amazon.com/eks)
+* Google Cloud with [GKE](https://cloud.google.com/kubernetes-engine)
 
 #### Google GKE
 
