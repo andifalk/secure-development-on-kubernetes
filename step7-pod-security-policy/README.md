@@ -1,4 +1,4 @@
-# Safe K8s Deployment
+# Safe K8s Deployment using Pod Security Policy
 
 This deploys the demo application to Kubernetes using cluster-wide pod security policy
 to enforce that the docker container must run unprivileged using non-root user.
@@ -339,3 +339,9 @@ Now this should successfully be deployed as it is compliant and authorized for t
 
 You may notice that the previously deployed applications will not work any more as none of these authorize against
 this new policy (even if these would be compliant).
+
+You may also check that the user of the running container is not root using (check your pod name before):
+
+```shell
+kubectl exec hello-rootless-59f59fb9b8-878rk -it -- whoami
+```

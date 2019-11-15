@@ -1,4 +1,4 @@
-# Safe K8s Deployment
+# Safe K8s Deployment using Pod Security Context
 
 This deploys the demo application to Kubernetes using pod security context
 to enforce that the docker container must run unprivileged using non-root user.
@@ -81,8 +81,17 @@ also does enforce a non-root user now!
 
 Now to deploy our application use these commands:
 
-```bash
+```shell
 kubectl apply -f ./deploy-rootless.yaml
+kubectl apply -f ./service.yaml
+```
+
+This deploys the rootless image build using the openjdk base image.
+
+If you want to use the JIB image using the distroless image instead then use these commands:
+
+```shell
+kubectl apply -f ./deploy-rootless-jib.yaml
 kubectl apply -f ./service.yaml
 ```
 
@@ -104,3 +113,12 @@ You can also check for a lot of other security relevant things by using:
 ```bash
 kubeaudit all -n default
 ```
+
+You may also check that the user of the running container is not root using (check your pod name before):
+
+```shell
+kubectl exec hello-rootless-59f59fb9b8-878rk -it -- whoami
+```
+
+__Note:__ If you have deployed the JIB container image then the base image is a _distroless_ image meaning that
+no shell and no _whoami_ command is inside the container. Therefore you cannot use the command above.
