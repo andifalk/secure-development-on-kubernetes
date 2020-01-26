@@ -1,3 +1,5 @@
+![Java CI](https://github.com/andifalk/secure-development-on-kubernetes/workflows/Java%20CI/badge.svg)
+
 # Secure Development on Kubernetes
 
 This repository contains presentation slides and the complete live demo code 
