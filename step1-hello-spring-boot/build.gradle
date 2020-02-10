@@ -2,12 +2,11 @@ import com.github.spotbugs.SpotBugsTask
 
 plugins {
     id 'org.springframework.boot' version '2.2.4.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
     id "com.github.spotbugs" version "2.0.1"
     id 'org.owasp.dependencycheck' version "5.2.3"
 }
-
-apply plugin: 'io.spring.dependency-management'
 
 group = 'com.example'
 version = '1.0.0-SNAPSHOT'
