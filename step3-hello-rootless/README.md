@@ -46,3 +46,7 @@ using this command:
 ```bash
 trivy --clear-cache --severity HIGH,CRITICAL andifalk/hello-rootless:latest
 ```
+
+## Next
+
+[Next: Rootless JIB Container](../step4-hello-rootless-jib)

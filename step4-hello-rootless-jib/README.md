@@ -14,7 +14,7 @@ without the root user.
 ```groovy
 plugins {
     ...
-    id 'com.google.cloud.tools.jib' version '1.7.0'
+    id "com.google.cloud.tools.jib" version "2.0.0"
 }
 ...
 jib {
@@ -56,3 +56,7 @@ using this command:
 ```bash
 trivy --clear-cache --severity HIGH,CRITICAL andifalk/hello-rootless-jib:latest
 ```
+
+## Next
+
+[Next: Initial Unsafe K8s Deploy](../step5-initial-k8s-deploy)

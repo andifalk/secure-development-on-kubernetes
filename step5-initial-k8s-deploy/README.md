@@ -48,13 +48,14 @@ also does not prohibit this by default!
 
 Now you can prove that this container does run with root by using a tool like [kubeaudit](https://github.com/Shopify/kubeaudit).
 
-```bash
+```shell
 kubeaudit nonroot -n default
 ```
 
 This should result in an output similar to this:
-```
-INFO[0000] Not running inside cluster, using local config 
+
+```shell
+INFO[0000] Not running inside cluster, using local config
 ERRO[0000] RunAsNonRoot is not set in ContainerSecurityContext, which results in root user being allowed!  Container=hello-root...
 ERRO[0000] RunAsNonRoot is not set in ContainerSecurityContext, which results in root user being allowed!  Container=hello-root...
 ```
@@ -62,8 +63,14 @@ ERRO[0000] RunAsNonRoot is not set in ContainerSecurityContext, which results in
 You may also check that the user of the running container is not root using (check your pod name before):
 
 ```shell
+kubectl get pods
+...
 kubectl exec hello-root-59f59fb9b8-878rk -it -- whoami
 ```
 
 __Note:__ If you have deployed the JIB container image then the base image is a _distroless_ image meaning that
 no shell and no _whoami_ command is inside the container. Therefore you cannot use the command above.
+
+## Next
+
+[Next: K8s Pod Security Context](../step6-pod-security-context)

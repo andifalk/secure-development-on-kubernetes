@@ -15,6 +15,7 @@ spec:
         app: hello-rootless
     spec:
       serviceAccountName: no-root-policy-serviceaccount
+      automountServiceAccountToken: false
       containers:
         - image: andifalk/hello-rootless-jib:latest
           name: hello-rootless
