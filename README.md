@@ -17,6 +17,7 @@ This repository contains presentation slides and the complete live demo code for
   * [Kubeaudit for Kubernetes Security Audits](#kubeaudit-for-kubernetes-security-audits)  
   * [Popeye - A Kubernetes Cluster Sanitizer](#popeye---a-kubernetes-cluster-sanitizer)  
   * [Who-Can for Auditing RBAC](#who-can-for-auditing-rbac)
+  * [Looking up Role Bindings with RBAC-Lookup](#look-up-role-bindings-with-rbac-lookup)
 * [Demos](#demos)
   * [Iteration 1: Application Security](#iteration-1-application-security)  
   * [Iteration 2: Container Security](#iteration-2-container-security)  
