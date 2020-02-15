@@ -2,8 +2,20 @@
 
 # Secure Development on Kubernetes
 
-This repository contains presentation slides and the complete live demo code 
-for the talk _Secure Development on Kubernetes_.
+This repository contains presentation slides and the complete live demo code for the talk _Secure Development on Kubernetes_.
+
+## Table of Contents
+
+* [Presentation Slides](#presentation)
+* [Requirements and Setup](#setup)
+  * [Local Kubernetes](#local-kubernetes)
+  * [Managed Kubernetes](#managed-kubernetes-cluster)
+  * [Trivy for Image Scanning](#trivy-for-image-scan)
+  * [KubeAudit for K8s Security Audits](kubeaudit-for-kubernetes-security-audits)
+* [Demos](#demos)
+  * [Iteration 1: Application Security](#iteration-1-application-security)  
+  * [Iteration 2: Container Security](#iteration-2-container-security)  
+  * [Iteration 3: Kubernetes Security](#iteration-3-kubernetes-security)
 
 ## Presentation
 
@@ -65,7 +77,7 @@ To stop it and get rid of the installation just type:
 ```bash
 k3s-uninstall.sh
 ```
- 
+
 ### Managed Kubernetes Cluster
 
 To use all features of an enterprise grade Kubernetes cluster you have to go into the cloud and use
