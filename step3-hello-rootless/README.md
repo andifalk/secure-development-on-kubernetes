@@ -7,7 +7,7 @@ This time we configure a non-root user in the _Dockerfile_ to build a container 
 without the root user.
 
 ```dockerfile
-FROM openjdk:11-jre-slim
+FROM openjdk:11.0.6-jre-buster
 COPY step3-hello-rootless-1.0.0-SNAPSHOT.jar app.jar
 EXPOSE 8080
 RUN addgroup --system --gid 1002 app && adduser --system --uid 1002 --gid 1002 appuser
@@ -29,8 +29,7 @@ This should return the following user information (it should not be root any mor
 appuser
 ```
 
-You should also be able to reach the dockerized application 
-via http://localhost:8080.
+You should also be able to reach the dockerized application via [localhost:8080](http://localhost:8080).
 
 Finally stop the running container by using the following command:
 

@@ -16,7 +16,7 @@ the root user by default:
 ## Standard Dockerfile
 
 ```dockerfile
-FROM openjdk:11-jre-slim
+FROM openjdk:11.0.6-jre-buster
 COPY step2-hello-root-1.0.0-SNAPSHOT.jar app.jar
 EXPOSE 8080
 ENTRYPOINT java -jar /app.jar
@@ -36,8 +36,7 @@ This should return the following user information (it really is root)
 root
 ```
 
-You should also be able to reach the dockerized application 
-via http://localhost:8080.
+You should also be able to reach the dockerized application via [localhost:8080](http://localhost:8080).
 
 Finally stop the running container by using the following command:
 

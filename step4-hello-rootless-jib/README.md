@@ -39,8 +39,7 @@ docker exec hello-rootless-jib whoami
 This time this should report an error as in the [distroless image](https://github.com/GoogleContainerTools/distroless) 
 , as used by JIB as default, there is no shell and no _whoami_ command installed.
 
-You should also be able to reach the dockerized application 
-via http://localhost:8080.
+You should also be able to reach the dockerized application via [localhost:8080](http://localhost:8080).
 
 Finally stop the running container by using the following command:
 
