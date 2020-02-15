@@ -158,6 +158,16 @@ After installing you may for example just check who can create pods:
 kubectl who-can create pods
 ```
 
+### Look up role bindings with RBAC lookup
+
+[RBAC Lookup](https://github.com/FairwindsOps/rbac-lookup) is a CLI that allows you to easily find Kubernetes roles and cluster roles bound to any user, service account, or group name.
+
+With RBAC lookup you can just query for example the role bindings of the _default_ service account:
+
+```shell
+kubectl rbac-lookup default -k serviceaccount -o wide
+```
+
 ## Demos
 
 ### Iteration 1: Application Security
