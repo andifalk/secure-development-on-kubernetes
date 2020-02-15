@@ -226,7 +226,7 @@ cluster-wide pod security policy instead later.
 
 ## Deploy the application using Pod Security Policy
 
-### Add and authorize policy
+### Add a Security policy
 
 Before enabling the Pod Security Policy admission controller there has to be
 at least one Pod Security Policy in place that our Pod must authorize against.
