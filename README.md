@@ -22,11 +22,28 @@ or [Minikube](https://minikube.sigs.k8s.io) as a cross-platform solution running
 For installation just follow the instructions on the [K3s](https://k3s.io) or [Minikube](https://minikube.sigs.k8s.io) 
 web sites.
 
+#### Minikube
+
+To start Minikube just type:
+
+```shell
+minikube start
+```
+
+You can stop Minikube again using:
+
+```shell
+minikube stop
+```
+
+#### K3s
+
 For Linux users the easiest way to provision a Kubernetes locally is done as follows:
 
-```bash
+```shell
 curl -sfL https://get.k3s.io | sh -
 ```
+
 After waiting for a short time (takes maybe about 30 seconds) you have a Kubernetes cluster ready to use.
 Just try this to make sure it works:
 
