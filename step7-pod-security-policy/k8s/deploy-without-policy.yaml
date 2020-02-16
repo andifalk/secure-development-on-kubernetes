@@ -26,9 +26,15 @@ spec:
               memory: "256Mi"
           readinessProbe:
             httpGet:
-              path: /actuator/health
+              path: /
               port: 8080
             initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 10
             periodSeconds: 5
           volumeMounts:
             - name: tmp-volume
