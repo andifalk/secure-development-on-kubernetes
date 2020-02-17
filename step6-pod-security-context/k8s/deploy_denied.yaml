@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hello-security-ctx-deny
+  name: hello-security-ctx-deny
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-security-ctx-deny
+  template:
+    metadata:
+      labels:
+        app: hello-security-ctx-deny
+    spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+      containers:
+      - image: andifalk/hello-root:latest
+        name: hello-security-ctx-deny
+        resources:
+          limits:
+            cpu: "1"
+            memory: "512Mi"
+          requests:
+            cpu: "0.5"
+            memory: "256Mi"
+        securityContext:
+          readOnlyRootFilesystem: true
+          allowPrivilegeEscalation: false
+          privileged: false
+          runAsNonRoot: true
+          capabilities:
+            drop:
+              - ALL
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        volumeMounts:
+          - name: tmp-volume
+            mountPath: /tmp
+      restartPolicy: Always
+      volumes:
+        - name: tmp-volume
+          emptyDir: {}

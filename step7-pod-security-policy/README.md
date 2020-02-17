@@ -11,8 +11,8 @@ Before diving into the pod security policy let's check how the authorization usi
 
 ### Authentication
 
-Kubernetes has the notion of users and service account to access resources. 
-A user is associated with a key and certificate to authenticate API requests. 
+Kubernetes has the notion of users and service account to access resources.
+A user is associated with a key and certificate to authenticate API requests.
 The most common technique to authenticate requests is through X.509 certificates.
 
 ### Authorization
@@ -167,14 +167,11 @@ This time the request should succeed and should return a similar response like t
 }
 ```
 
-__Note:__ Parts of this paragraph have been taken from a tutorial series at _TheNewStack_:
- https://thenewstack.io/kubernetes-access-control-exploring-service-accounts
+__Note:__ Parts of this paragraph have been taken from a tutorial series at [TheNewStack](https://thenewstack.io/kubernetes-access-control-exploring-service-accounts).
 
 ## Deploy the application
 
-The corresponding container image is pulled 
-from [andifalk/hello-rootless-jib](https://cloud.docker.com/repository/registry-1.docker.io/andifalk/hello-rootless-jib) 
-docker hub repository.
+The corresponding container image is pulled from [andifalk/hello-rootless-jib](https://cloud.docker.com/repository/registry-1.docker.io/andifalk/hello-rootless-jib) docker hub repository.
 
 The application is deployed using the following deployment yaml file _k8s/deploy.yaml_:
 
@@ -183,22 +180,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: hello-rootless
-  name: hello-rootless
+    app: hello-rootless-with-policy
+  name: hello-rootless-with-policy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hello-rootless
+      app: hello-rootless-with-policy
   template:
     metadata:
       labels:
-        app: hello-rootless
+        app: hello-rootless-with-policy
     spec:
       serviceAccountName: no-root-policy-serviceaccount
+      automountServiceAccountToken: false
       containers:
         - image: andifalk/hello-rootless-jib:latest
-          name: hello-rootless
+          name: hello-rootless-with-policy
           resources:
             limits:
               cpu: "1"
@@ -208,10 +206,16 @@ spec:
               memory: "256Mi"
           readinessProbe:
             httpGet:
-              path: /actuator/health
+              path: /
               port: 8080
             initialDelaySeconds: 5
             periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5  
           volumeMounts:
             - name: tmp-volume
               mountPath: /tmp
@@ -340,11 +344,6 @@ kubectl apply -f ./service.yaml
 
 Now this should successfully be deployed as it is compliant and authorized for the new pod security policy.
 
-You may notice that the previously deployed applications will not work any more as none of these authorize against
-this new policy (even if these would be compliant).
+## Deploy the application without Pod Security Policy
 
-You may also check that the user of the running container is not root using (check your pod name before):
-
-```shell
-kubectl exec hello-rootless-59f59fb9b8-878rk -it -- whoami
-```
+If you deploy the application via _deploy-without-policy.yaml_ you will notice that this application deployment denied due to the pod security policy.
