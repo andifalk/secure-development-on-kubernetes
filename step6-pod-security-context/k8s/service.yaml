@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: hello-rootless
+  name: hello-security-ctx
 spec:
   selector:
-    app: hello-rootless
+    app: hello-security-ctx
   ports:
   - port: 8081
     targetPort: 8080

@@ -2,24 +2,24 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: hello-root
-  name: hello-root
+    app: hello-security-ctx
+  name: hello-security-ctx
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hello-root
+      app: hello-security-ctx
   template:
     metadata:
       labels:
-        app: hello-root
+        app: hello-security-ctx
     spec:
       automountServiceAccountToken: false
       securityContext:
         runAsNonRoot: true
       containers:
-      - image: andifalk/hello-root:latest
-        name: hello-root
+      - image: andifalk/hello-rootless-jib:latest
+        name: hello-security-ctx
         resources:
           limits:
             cpu: "1"
