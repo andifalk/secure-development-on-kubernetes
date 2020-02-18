@@ -62,15 +62,15 @@ then you get full priviliged root access with all linux capabilities set:
 docker container run --privileged --rm -it alpine sh -c 'apk add -U libcap; capsh --print'
 ```
 
-In priviliged mode you can for example list and change partition tables:
+In privileged mode you can for example list and change partition tables:
 
 ```shell
 docker container run --privileged --rm -it alpine sh -c 'apk add -U libcap; capsh --print; fdisk -l'
 ```
 
 Usually you even don't need the default capabilities defined by docker.
-A common use case is to run a container listening on a priviliged tcp port (e.g. a http server).
-For this you just need the capability _CAP_NET_BIND_:
+A common use case is to run a container listening on a [priviliged tcp port (below 1024)](https://www.w3.org/Daemon/User/Installation/PrivilegedPorts.html), e.g. using a http server.  
+For this you just need the capability _CAP_NET_BIND_SERVICE_:
 
 ```shell
 docker container run --cap-drop=ALL --cap-add=net_bind_service --rm -it alpine sh -c 'apk add -U libcap; capsh --print'
