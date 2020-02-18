@@ -69,7 +69,7 @@ docker container run --privileged --rm -it alpine sh -c 'apk add -U libcap; caps
 ```
 
 Usually you even don't need the default capabilities defined by docker.
-A common use case is to run a container listening on a [priviliged tcp port (below 1024)](https://www.w3.org/Daemon/User/Installation/PrivilegedPorts.html), e.g. using a http server.  
+A common use case is to run a container listening on a [privileged tcp port (below 1024)](https://www.w3.org/Daemon/User/Installation/PrivilegedPorts.html), e.g. using a http server.  
 For this you just need the capability _CAP_NET_BIND_SERVICE_:
 
 ```shell
