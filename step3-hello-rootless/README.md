@@ -14,8 +14,11 @@ RUN addgroup --system --gid 1002 app && adduser --system --uid 1002 --gid 1002 a
 USER 1002
 ENTRYPOINT java -jar /app.jar
 ```
-  
-You can prove this by using these commands:
+
+Regarding the group-id (gid) and user-id (uid) you should use one above '1000' to avoid using any system user.
+If you want to be really on the safe side you even leave out all local users (reserved numbers up to 10000) by chosing a number above '10000' (reserved for remote users).
+
+You can prove that the container now does not run with root any more by using these commands:
 
 ```bash
 docker container run --rm --detach --name hello-rootless \
@@ -39,8 +42,7 @@ docker stop hello-rootless
 
 ## Check image for Vulnerabilities
 
-Now we can check our image for vulnerabilities with high and critical severities 
-using this command:
+Now we can check our image for vulnerabilities with high and critical severities using this command:
 
 ```bash
 trivy --clear-cache --severity HIGH,CRITICAL andifalk/hello-rootless:latest

@@ -4,19 +4,21 @@ This demo again builds an improved docker image from the demo application.
 For details on the demo application see [hello spring boot application](../step1-hello-spring-boot).
 
 But this time instead of using a _Dockerfile_ we will use [Google JIB](https://github.com/GoogleContainerTools/jib) to build the container image.
-With JIB you even can build a container image without a docker daemon installed on your machine. Additionally
-building images repeatedly is much faster as JIB optimizes this to the typical development flow so that only the application code changes
-and no dependencies.
 
-This time we configure a non-root user in the _gradle.build_ file to build a container image that will run using
+Using JIB has the following advantages compared to classical image creation using Dockerfile:  
+
+* With JIB you even can build a container image without a docker daemon installed on your machine.
+* Building images repeatedly is much faster as JIB optimizes this to the typical development flow (i.e. the application code changes much more frequently then dependencies).
+* JIB uses the [Google Distroless Base Images](https://github.com/GoogleContainerTools/distroless) that only include the minimum components just to execute the desired process (e.g. Go or Java)
+
+JIB works by using adding a plugin to your maven or gradle build.
+So here we add the plugin to our gradle build and also configure a non-root user in the _gradle.build_ file to build a container image that will run using
 without the root user.
 
 ```groovy
 plugins {
-    ...
     id "com.google.cloud.tools.jib" version "2.0.0"
 }
-...
 jib {
     to {
         image = 'andifalk/hello-rootless-jib:latest'
@@ -25,25 +27,23 @@ jib {
         user = 1002
     }
 }
-...
 ```
   
 You can prove this by using these commands:
 
-```bash
+```shell
 docker container run --rm --detach --name hello-rootless-jib \
 -p 8080:8080 andifalk/hello-rootless-jib:latest
 docker exec hello-rootless-jib whoami
 ```
 
-This time this should report an error as in the [distroless image](https://github.com/GoogleContainerTools/distroless) 
-, as used by JIB as default, there is no shell and no _whoami_ command installed.
+This time this should report an error as in the [distroless image](https://github.com/GoogleContainerTools/distroless), as used by JIB as default, there even is no shell installed and so no _whoami_ command is possible.
 
-You should also be able to reach the dockerized application via [localhost:8080](http://localhost:8080).
+You should also be able to reach the dockerized application again via [localhost:8080](http://localhost:8080).
 
 Finally stop the running container by using the following command:
 
-```bash
+```shell
 docker stop hello-rootless-jib
 ```
 
@@ -52,7 +52,7 @@ docker stop hello-rootless-jib
 Now we can check our image for vulnerabilities with high and critical severities 
 using this command:
 
-```bash
+```shell
 trivy --clear-cache --severity HIGH,CRITICAL andifalk/hello-rootless-jib:latest
 ```
 
