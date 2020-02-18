@@ -55,8 +55,8 @@ You can print the default capabilities by using this command:
 docker container run --rm -it alpine sh -c 'apk add -U libcap; capsh --print'
 ```
 
-If you even run the container in priviliged mode (you should usually never do that)
-then you get full priviliged root access with all linux capabilities set:
+If you even run the container in privileged mode (you should usually never do that)
+then you get full privileged root access with all linux capabilities set:
 
 ```shell
 docker container run --privileged --rm -it alpine sh -c 'apk add -U libcap; capsh --print'
