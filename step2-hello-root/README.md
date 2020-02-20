@@ -78,10 +78,10 @@ docker container run --cap-drop=ALL --cap-add=net_bind_service --rm -it alpine s
 
 ## Check image for Vulnerabilities
 
-Now we can check our image for vulnerabilities with high and critical severities using this command:
+Now we can check our image for vulnerabilities with critical severities using this command:
 
 ```bash
-trivy --clear-cache --severity HIGH,CRITICAL andifalk/hello-root:latest
+trivy --severity CRITICAL andifalk/hello-root:latest
 ```
 
 ## Next
