@@ -43,6 +43,8 @@ spec:
 
 Just deploy it by typing ```kubectl apply -f ./deploy.yaml``` in directory _k8s_.
 
+## Static analysis of Deployment
+
 Please note that the container is running as root by default and kubernetes
 also does not prohibit this by default!
 
@@ -58,6 +60,31 @@ This should result in an output similar to this:
 INFO[0000] Not running inside cluster, using local config
 ERRO[0000] RunAsNonRoot is not set in ContainerSecurityContext, which results in root user being allowed!  Container=hello-root...
 ERRO[0000] RunAsNonRoot is not set in ContainerSecurityContext, which results in root user being allowed!  Container=hello-root...
+```
+
+An alternative tool for this is _popeye_, just run it against your current cluster:
+
+```shell
+popeye
+```
+
+It is also possible to check directly your deployment yaml file:
+
+```shell
+kube-score score ./deploy.yaml
+```
+
+This will show an output similar to this one:
+
+```shell
+[CRITICAL] Container Security Context
+        · hello-root -> Container has no configured security context
+            Set securityContext to run the container in a more secure context.
+[CRITICAL] Container Resources
+        · hello-root -> CPU limit is not set
+            Resource limits are recommended to avoid resource DDOS. Set resources.limits.cpu
+        · hello-root -> Memory limit is not set
+            Resource limits are recommended to avoid resource DDOS. Set resources.limits.memory
 ```
 
 You may also check that the user of the running container is not root using (check your pod name before):

@@ -15,11 +15,11 @@ Kubernetes has the notion of users and service account to access resources.
 A user is associated with a key and certificate to authenticate API requests.
 The most common technique to authenticate requests is through X.509 certificates.
 
-### Authorization
+### Authorization with RBAC
 
 Once an API request is authenticated, the next step is to determine whether the operation is allowed or not.
 
-For authorizing a request, Kubernetes looks at three aspects:
+For authorizing a request, Kubernetes Role Based Access Control (RBAC) looks at three aspects:
 1.the username of the requester
 2.the requested action
 3.and the object affected by the action
@@ -33,6 +33,25 @@ The requester can be of type:
 * user
 * group
 * serviceaccount
+
+You can evaluate what you are allowed to perform in Kubernetes using:
+
+```shell
+kubectl auth can-i create pods
+```
+
+This command is limited to ask from a users' prospective.
+If you want to ask the other way around you may use _kubectl-who_can_:
+
+```shell
+kubectl-who_can create pods
+```
+
+or evaluate role bindings for a subject using _rbac-lookup_:
+
+```shell
+kubectl rbac-lookup default -k serviceaccount -o wide
+```
 
 ### Service accounts
 
