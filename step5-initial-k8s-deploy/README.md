@@ -7,8 +7,7 @@ For details on the demo application see [hello spring boot application](../step1
   
 ## Deploy the application
 
-The corresponding container image is pulled 
-from [andifalk/hello-root](https://cloud.docker.com/repository/registry-1.docker.io/andifalk/hello-root) docker hub repository.
+The corresponding container image is pulled from [andifalk/hello-root](https://cloud.docker.com/repository/registry-1.docker.io/andifalk/hello-root) docker hub repository.
 
 The application is deployed using the following deployment yaml file _k8s/deploy.yaml_:
 
