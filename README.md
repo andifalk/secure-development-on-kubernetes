@@ -35,7 +35,7 @@ You need a Java JDK version 11 or higher
 
 ### Kubernetes
 
-In general you should be able to run all demos on current Kubernetes cluster versions
+In general, you should be able to run all demos on current Kubernetes cluster versions
 at least supporting pod security contexts.
 
 For local Kubernetes provisioning you may use [K3s](https://k3s.io) that runs on Linux systems (without using a VM) or [Minikube](https://minikube.sigs.k8s.io) as a cross-platform solution running on Linux, macOS, and Windows.

@@ -21,4 +21,11 @@
         <gav regex="true">^org\.springframework\.security:spring-security-core:.*$</gav>
         <cve>CVE-2018-1258</cve>
     </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: dom4j-2.1.1.jar
+   ]]></notes>
+        <cpe regex="true">^dom4j_project:dom4j:.*$</cpe>
+        <cve>CVE-2020-10683</cve>
+    </suppress>
 </suppressions>
