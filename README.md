@@ -186,3 +186,4 @@ kubectl rbac-lookup default -k serviceaccount -o wide
 * [Initial Unsafe Kubernetes Deployment](step5-initial-k8s-deploy)
 * [Safe Kubernetes Deployment (Pod Security Context)](step6-pod-security-context)
 * [Safe Kubernetes Deployment (Pod Security Policy)](step7-pod-security-policy)
+* [Safe Kubernetes Deployment (Open Policy Agent)](step8-open-policy-agent)

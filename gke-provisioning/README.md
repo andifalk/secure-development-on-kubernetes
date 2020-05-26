@@ -47,7 +47,7 @@ Interesting ones are:
 2. Use Method / Node
 3. Kubernetes / Compute Resources / Pod
 
-When you select the one for cluster it looks like the following image.
+When you select the one for the cluster it looks like the following image.
 
 ![Grafana](images/grafana.png)
 
