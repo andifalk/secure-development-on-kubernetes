@@ -46,7 +46,7 @@ spotbugsMain {
 }
 
 docker {
-    name 'andifalk/hello-root:latest'
+    name imageName
     files bootJar.archiveFile
 }
 

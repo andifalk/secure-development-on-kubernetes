@@ -46,7 +46,7 @@ spotbugsMain {
 }
 
 docker {
-    name 'andifalk/hello-rootless:latest'
+    name imageName
     files bootJar.archiveFile
 }
 

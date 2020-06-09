@@ -52,7 +52,8 @@ docker stop hello-rootless-jib
 Now we can check our image for vulnerabilities with high and critical severities using this command:
 
 ```shell
-trivy --severity HIGH,CRITICAL andifalk/hello-rootless-jib:latest
+trivy i --clear-cache
+trivy i --severity HIGH,CRITICAL andifalk/hello-rootless-jib:latest
 ```
 
 ## Next

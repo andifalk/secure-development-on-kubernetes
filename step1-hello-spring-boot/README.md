@@ -6,8 +6,8 @@ all security patterns when deploying and running this in Kubernetes.
 This application provides two REST APIs:
 
 * Greetings API
-  * GET [http://localhost:8080](http://localhost:8080): Shows greeting with configured default message
-  * GET [http://localhost:8080?message=test](http://localhost:8080?message=test): Shows greeting with custom message
+  * GET [localhost:8080](http://localhost:8080): Shows greeting with configured default message
+  * GET [localhost:8080?message=test](http://localhost:8080?message=test): Shows greeting with custom message
 * Actuator API
   * Exposes all available [actuator endpoints](http://localhost:8080/actuator) of Spring Boot (including sensitive ones)
 
@@ -69,12 +69,12 @@ With the default code XSS is not working as there are multiple
 defense mechanisms in place:
 
 * Input validation only permits maximum length of _30_ for url message parameter
-* Reflected greeting is output escaped (Html AND javascript)
+* The application is safe against interpreting the reflected greeting by using output escaping (Html AND javascript)
 * Content-Type is set to _application/json_ 
 
 Note:  
 If you disable all these precautions then you should see XSS working.
-But please do __not disable__ these in productive code !!! 
+Please do __not disable__ those precautions in productive code !!! 
 
 ## Build process
 

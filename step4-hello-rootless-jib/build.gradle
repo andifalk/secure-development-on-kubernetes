@@ -47,7 +47,7 @@ spotbugsMain {
 
 jib {
     to {
-        image = 'andifalk/hello-rootless-jib:latest'
+        image = imageName
     }
     container {
         user = 1002

@@ -7,7 +7,7 @@ This time we configure a non-root user in the _Dockerfile_ to build a container 
 without the root user.
 
 ```dockerfile
-FROM openjdk:11.0.6-jre-buster
+FROM openjdk:11.0.7-jre-slim-buster
 COPY step3-hello-rootless-1.0.0-SNAPSHOT.jar app.jar
 EXPOSE 8080
 RUN addgroup --system --gid 1002 app && adduser --system --uid 1002 --gid 1002 appuser
@@ -16,11 +16,11 @@ ENTRYPOINT java -jar /app.jar
 ```
 
 Regarding the group-id (gid) and user-id (uid) you should use one above '1000' to avoid using any system user.
-If you want to be really on the safe side you even leave out all local users (reserved numbers up to 10000) by chosing a number above '10000' (reserved for remote users).
+If you want to be really on the safe side you even leave out all local users (reserved numbers up to 10000) by choosing a number above '10000' (reserved for remote users).
 
 You can prove that the container now does not run with root any more by using these commands:
 
-```bash
+```shell
 docker container run --rm --detach --name hello-rootless \
 -p 8080:8080 andifalk/hello-rootless:latest
 docker exec hello-rootless whoami
@@ -28,15 +28,23 @@ docker exec hello-rootless whoami
 
 This should return the following user information (it should not be root any more)
 
-```bash
+```shell
 appuser
+```
+
+To prevent any privilege escalation it is also best practice restricting this by the additional command option _--security-opt=no-new-privileges_ 
+for _docker run_:
+
+```shell
+docker container run --security-opt=no-new-privileges --rm --detach --name hello-rootless \
+-p 8080:8080 andifalk/hello-rootless:latest
 ```
 
 You should also be able to reach the dockerized application via [localhost:8080](http://localhost:8080).
 
-Finally stop the running container by using the following command:
+Finally, stop the running container by using the following command:
 
-```bash
+```shell
 docker stop hello-rootless
 ```
 
@@ -44,8 +52,9 @@ docker stop hello-rootless
 
 Now we can check our image for vulnerabilities with high and critical severities using this command:
 
-```bash
-trivy --severity HIGH,CRITICAL andifalk/hello-rootless:latest
+```shell
+trivy i --clear-cache
+trivy i --severity HIGH,CRITICAL andifalk/hello-rootless:latest
 ```
 
 ## Next
