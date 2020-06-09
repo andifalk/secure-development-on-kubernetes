@@ -112,7 +112,7 @@ Docker uses the Linux cgroups to limit resource usage of containers.
 To limit the container to use a maximum of 200MiB and only one half of a cpu use this command:
 
 ```shell
-docker container run --cpu-shares=0.5 --memory=256MB --rm --detach --name hello-root -p 8080:8080 andifalk/hello-root:latest
+docker container run --cpu-shares=0.5 --memory=200m --rm --detach --name hello-root -p 8080:8080 andifalk/hello-root:latest
 ```
 
 You will recognize that the spring boot application startup is much slower in this container due to less cpu power.
