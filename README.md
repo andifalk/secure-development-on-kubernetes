@@ -2,7 +2,7 @@
 
 # Secure Development on Kubernetes
 
-This repository contains presentation slides and the complete live demo code for the talk _Secure Development on Kubernetes_.
+This repository contains presentation slides, and the complete live demo code for the talk _Secure Development on Kubernetes_.
 
 ## Table of Contents
 
@@ -71,8 +71,7 @@ Just try this to make sure it works:
 sudo k3s kubectl get nodes
 ```
 
-Unfortunately as of now this requires root privileges. Rootless support is 
-currently only provided as _experimental_ feature. 
+Unfortunately as of now this requires root privileges. Currently, K3s provides Rootless support only as an _experimental_ feature. 
 
 To stop the Kubernetes server just type:
 

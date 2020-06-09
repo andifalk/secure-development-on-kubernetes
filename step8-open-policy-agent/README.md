@@ -34,6 +34,8 @@ deny[msg] {
 This example checks if the container image to be deployed on a K8s cluster origins from 
 a trusted container registry called (_myreg.com_).
 
+To evaluate and play with [Rego](https://www.openpolicyagent.org/docs/latest/policy-language) you can use the [The Rego Playground](https://play.openpolicyagent.org)
+
 ## Gatekeeper
 
 [Gatekeeper](https://github.com/open-policy-agent/gatekeeper) installs an [admission controller](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/) on K8s that contains 
