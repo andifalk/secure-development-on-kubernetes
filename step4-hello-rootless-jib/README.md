@@ -17,8 +17,9 @@ without the root user.
 
 ```groovy
 plugins {
-    id "com.google.cloud.tools.jib" version "2.0.0"
+    id 'com.google.cloud.tools.jib' version '2.6.0'
 }
+
 jib {
     to {
         image = 'andifalk/hello-rootless-jib:latest'
