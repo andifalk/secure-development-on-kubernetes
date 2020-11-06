@@ -188,6 +188,8 @@ kubectl rbac-lookup default -k serviceaccount -o wide
 
 ## Demos
 
+* [Linux & Container Basics](step0-linux-container-basics)
+
 ### Iteration 1: Application Security
 
 * [Hello Spring Boot](step1-hello-spring-boot)
