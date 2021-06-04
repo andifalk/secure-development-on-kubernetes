@@ -11,8 +11,7 @@ This application provides two REST APIs:
 * Actuator API
   * Exposes all available [actuator endpoints](http://localhost:8080/actuator) of Spring Boot (including sensitive ones)
 
-The application is kept simple to focus on the security parts instead of having to describe
-a complex use case model.
+The application is kept simple by intention to focus on the security parts instead of having to describe a complex use case model.
     
 ## Run the application
 

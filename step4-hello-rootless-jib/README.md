@@ -7,13 +7,13 @@ But this time instead of using a _Dockerfile_ we will use [Google JIB](https://g
 
 Using JIB has the following advantages compared to classical image creation using Dockerfile:  
 
-* With JIB you even can build a container image without a docker daemon installed on your machine.
+* With JIB, you even can build a container image without a docker daemon installed on your machine.
 * Building images repeatedly is much faster as JIB optimizes this to the typical development flow (i.e. the application code changes much more frequently then dependencies).
 * JIB uses the [Google Distroless Base Images](https://github.com/GoogleContainerTools/distroless) that only include the minimum components just to execute the desired process (e.g. Go or Java)
 
 JIB works by using adding a plugin to your maven or gradle build.
-So here we add the plugin to our gradle build and also configure a non-root user in the _gradle.build_ file to build a container image that will run using
-without the root user.
+So here we add the plugin to our gradle build. And we also configure a non-root user in the _gradle.build_ file to build a container image that will run 
+without using the root user.
 
 ```groovy
 plugins {
@@ -42,7 +42,7 @@ This time this should report an error as in the [distroless image](https://githu
 
 You should also be able to reach the dockerized application again via [localhost:8080](http://localhost:8080).
 
-Finally stop the running container by using the following command:
+Finally, stop the running container by using the following command:
 
 ```shell
 docker stop hello-rootless-jib

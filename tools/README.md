@@ -1,8 +1,10 @@
 # Helpful Tools for K8s Security
 
-## Kube-Score for Static Code Analysis
+## Static Code Analysis
 
-Kube-score is a tool that performs static code analysis of your Kubernetes object definitions (i.e., your YAML files).
+### Kube-Score
+
+[Kube-Score](https://github.com/zegl/kube-score) is a tool that performs static code analysis of your Kubernetes object definitions (i.e., your YAML files).
 You can install it from [Kube-Score](https://github.com/zegl/kube-score).
 
 Now you can just verify e.g., a deployment definition like this:
@@ -11,15 +13,36 @@ Now you can just verify e.g., a deployment definition like this:
 kube-score score ./deploy.yaml
 ```
 
-## Trivy for Image Scan
+### Checkov
+
+[Chekov](https://github.com/bridgecrewio/checkov) is an open source static code analysis tool for infrastructure-as-code. It scans cloud infrastructure provisioned using Terraform, Terraform plan, Cloudformation, Kubernetes, Dockerfile and more.
+
+### KICS
+
+[KICS](https://kics.io/) is an open source solution for static code analysis of Infrastructure as Code. KICS finds security vulnerabilities, compliance issues, and infrastructure misconfigurations in Infrastructure as Code solutions like Terraform, Kubernetes, Docker, Ansible or Helm.
+
+## Image Scanning
+
+## Docker Scan
+
+Starting with [Docker Desktop](https://docs.docker.com/desktop/) version 2.3.6.0 or [Docker Engine](https://docs.docker.com/engine/) on Linux version 20.10.6 Docker has [image scan capabilities](https://docs.docker.com/engine/scan/) built-in using functionality provided by Snyk.
+
+## Trivy
 
 As part of the demos we will also scan our container images for OS and Application vulnerabilities
 using an open source tool named [Trivy](https://github.com/aquasecurity/trivy).
 
 For installation instructions just browse to the [Trivy](https://github.com/aquasecurity/trivy) website.
 
-Trivy is very easy to use locally and inside your CI/CD system. If you want to have a more enterprise grade tool
-you may look for the [Harbour Registry](https://goharbor.io) (including the Clair image scanner), or a commercial tool like [Snyk](https://snyk.io).
+Trivy is very easy to use locally and inside your CI/CD system. 
+
+### Harbour Registry
+
+[Harbour Registry](https://goharbor.io) is an open source registry that secures artifacts with policies and role-based access control, __ensures images are scanned and free from vulnerabilities__, and signs images as trusted. For image scanning you may integrate with one of the [supported scanners](https://goharbor.io/docs/2.2.0/install-config/harbor-compatibility-list/#scanner-adapters) like [Trivy](https://github.com/aquasecurity/trivy), [Clair](https://github.com/quay/clair) or [Anchore](https://anchore.com/).
+
+### Snyk
+
+or a commercial tool like [Snyk](https://snyk.io).
 
 ## Kubeaudit for Kubernetes Security Audits
 

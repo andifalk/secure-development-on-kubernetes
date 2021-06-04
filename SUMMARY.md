@@ -24,5 +24,5 @@
 
 ## Further Resources
 
-* [Helpful Tools for K8s Security](tools/README.md)
+* [Helpful Tools for Container & K8s Security](tools/README.md)
 * [List of Further Resources](resources/README.md)

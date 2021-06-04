@@ -1,13 +1,15 @@
 # Safe K8s Deployment using Pod Security Policy
 
-This deploys the demo application to Kubernetes using cluster-wide pod security policy
-to enforce that the docker container must run unprivileged using non-root user.
+This deploys the demo application to Kubernetes using cluster-wide pod security policy to enforce that the docker container must run unprivileged using non-root user.
+
+__Please note that as of Kubernetes version 1.21 _pod security policy_ is deprecated and will be replaced by a new corresponding feature in version 1.25.
+Please check this [blog post on kuberneetes.io](https://kubernetes.io/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/) for details.__
 
 For details on the demo application see [hello spring boot application](../step1-hello-spring-boot).
 
 ## RBAC
 
-Before diving into the pod security policy let's check how the authorization using RBAC (Role Based Access Control) works.
+Before diving into the _pod security policy_ let's check how the authorization using RBAC (Role Based Access Control) works.
 
 ### Authentication
 
@@ -22,7 +24,7 @@ Once an API request is authenticated, the next step is to determine whether the 
 For authorizing a request, Kubernetes Role Based Access Control (RBAC) looks at three aspects:
 1.the username of the requester
 2.the requested action
-3.and the object affected by the action
+3.the object affected by the action
 
 The username is extracted from the token embedded in the header, the action is 
 one of the HTTP verbs like _GET_, _POST_, _PUT_, _DELETE_ mapped to CRUD operations, and the object is one of the valid 
@@ -55,7 +57,7 @@ kubectl rbac-lookup default -k serviceaccount -o wide
 
 ### Service accounts
 
-While X.509 certificates are used for authenticating external requests, service accounts are meant to authenticate processes running within the cluster.
+While you use X.509 certificates for authenticating external requests, service accounts are meant to authenticate processes running within the cluster.
 Service accounts are associated with pods that make internal calls to the API server.
 
 Every Kubernetes installation has a service account called __default__ that is automatically associated with every running pod.
@@ -254,7 +256,7 @@ cluster-wide pod security policy instead later.
 Before enabling the Pod Security Policy admission controller there has to be
 at least one Pod Security Policy in place that our Pod must authorize against.
 
-Otherwise if we would enable the admission controller beforehand the Pod would
+Otherwise, if we would enable the admission controller beforehand the Pod would
 be declined to run completely.
 
 We will add a new policy prohibiting privileged containers with root access completely:
@@ -365,4 +367,4 @@ Now this should successfully be deployed as it is compliant and authorized for t
 
 ## Deploy the application without Pod Security Policy
 
-If you deploy the application via _deploy-without-policy.yaml_ you will notice that this application deployment denied due to the pod security policy.
+When you deploy the application via _deploy-without-policy.yaml_ you will notice that this application deployment denied due to the _pod security policy_.

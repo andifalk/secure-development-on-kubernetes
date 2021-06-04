@@ -9,7 +9,7 @@ For details on the demo application see [hello spring boot application](../step1
 
 The corresponding container image is pulled from [andifalk/hello-root](https://cloud.docker.com/repository/registry-1.docker.io/andifalk/hello-root) docker hub repository.
 
-Please note that this container is not allowed to run as root any more!
+Please note that this container is not allowed to run as root anymore!
 
 There is also a specification for resource limits (the container is only allowed to access the given cpu and memory).
 
@@ -158,7 +158,7 @@ kubectl apply -f ./service.yaml
 
 This deploys the rootless image build using the openjdk base image.
 
-Now this should successfully be deployed as the container is non-root and therefore is compliant to the pod security context.
+Now this should successfully be deployed as the container is non-root and therefore is compliant to the _pod security context_.
 
 Now you can prove that this container does not run with root by using [kubeaudit](https://github.com/Shopify/kubeaudit) again.
 

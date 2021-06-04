@@ -26,7 +26,7 @@ docker container run --rm --detach --name hello-rootless \
 docker exec hello-rootless whoami
 ```
 
-This should return the following user information (it should not be root any more)
+This should return the following user information (it should not be root anymore)
 
 ```shell
 appuser

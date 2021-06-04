@@ -1,4 +1,6 @@
+[![License](https://img.shields.io/badge/License-Apache%20License%202.0-brightgreen.svg)][1]
 ![Java CI](https://github.com/andifalk/secure-development-on-kubernetes/workflows/Java%20CI/badge.svg)
+[![Release](https://img.shields.io/github/release/andifalk/secure-development-on-kubernetes.svg?style=flat)](https://github.com/andifalk/secure-development-on-kubernetes/releases)
 
 # Secure Development on Kubernetes
 
@@ -7,195 +9,51 @@ This repository contains the complete code labs for the deep dive session on _Se
 ## Table of Contents
 
 * [Requirements and Setup](#requirements-and-setup)
-  * [Java JDK](#java-jdk)
-  * [Kubernetes Cluster](#kubernetes)
 * [Helpful tools for K8s Security](#helpful-tools-for-k8s-security)  
-  * [Trivy for Image Scan](#trivy-for-image-scan)  
-  * [Kubeaudit for Kubernetes Security Audits](#kubeaudit-for-kubernetes-security-audits)  
-  * [Popeye - A Kubernetes Cluster Sanitizer](#popeye---a-kubernetes-cluster-sanitizer)  
-  * [Who-Can for Auditing RBAC](#who-can-for-auditing-rbac)
-  * [Looking up Role Bindings with RBAC-Lookup](#look-up-role-bindings-with-rbac-lookup)
-* [Demos](#demos)
+* [Labs](#labs)
   * [Iteration 1: Application Security](#iteration-1-application-security)  
   * [Iteration 2: Container Security](#iteration-2-container-security)  
   * [Iteration 3: Kubernetes Security](#iteration-3-kubernetes-security)
   
 ## Requirements and Setup
 
-### Java JDK
-
-You need a Java JDK version 11 or higher
-
-### Kubernetes
-
-In general, you should be able to run all demos on current Kubernetes cluster versions
-at least supporting pod security contexts.
-
-For local Kubernetes provisioning you may use [K3s](https://k3s.io) that runs on Linux systems (without using a VM) or [Minikube](https://minikube.sigs.k8s.io) as a cross-platform solution running on Linux, macOS, and Windows.
-
-For installation just follow the instructions on the [K3s](https://k3s.io) or [Minikube](https://minikube.sigs.k8s.io) web sites.
-
-#### Minikube
-
-To start Minikube just type:
-
-```shell
-minikube start
-```
-
-If you want to use local images to be deployed to minikube 
-then you need to point the docker registry to the one inside minikube.
-
-```shell
-eval $(minikube docker-env)
-```
-
-With a _docker ps_ command you can check if you are using the intended docker registry.
- 
-```shell
-docker ps
-```
-
-You can stop Minikube again using:
-
-```shell
-minikube stop
-```
-
-For full details please consult the [minikube docs](https://minikube.sigs.k8s.io/docs/)
-
-#### K3s
-
-For Linux users the easiest way to provision a Kubernetes locally is done as follows:
-
-```shell
-curl -sfL https://get.k3s.io | sh -
-```
-
-After waiting for a short time (takes maybe about 30 seconds) you have a Kubernetes cluster ready to use.
-Just try this to make sure it works:
-
-```bash
-sudo k3s kubectl get nodes
-```
-
-Unfortunately as of now this requires root privileges. Currently, K3s provides Rootless support only as an _experimental_ feature. 
-
-To stop the Kubernetes server just type:
-
-```bash
-k3s-killall.sh
-```
-
-To stop it and get rid of the installation just type:
-
-```bash
-k3s-uninstall.sh
-```
-
-#### Managed Kubernetes Cluster
-
-To use all features of an enterprise grade Kubernetes cluster you have to go into the cloud and use
-one of the well-known providers:
-
-* Microsoft Azure with [AKS](https://azure.microsoft.com/en-us/services/kubernetes-service)
-* Amazon AWS with [EKS](https://aws.amazon.com/eks)
-* Google Cloud with [GKE](https://cloud.google.com/kubernetes-engine)
-
-The [gke-provisioning](gke-provisioning) directory contains
-scripts to create a kubernetes cluster on google cloud GKE.
-There is also a script to update the cluster to enable pod security policy.
-
-To use the scripts you must have google cloud cli installed and be logged in
-to GCP.
-
-```bash
-gcloud auth login
-gcloud config set project [project]
-```
-
-Please update the provided scripts according to your google cloud project and the target zone 
-you want to use before executing these!
+Please check the [Requirements and Setup] section first before looking into the [Labs](#labs).
 
 ## Helpful Tools for K8s Security
 
-### Kube-Score for Static Code Analysis
+For helpful tools see [here](tools/README.md).
 
-Kube-score is a tool that performs static code analysis of your Kubernetes object definitions (i.e. your YAML files).
-You can install it from [Kube-Score](https://github.com/zegl/kube-score).
+## Labs
 
-Now you can just verify e.g. a deployment definition like this:
-
-```shell
-kube-score score ./deploy.yaml
-```
-
-### Trivy for Image Scan
-
-As part of the demos we will also scan our container images for OS and Application vulnerabilities
-using an open source tool named [Trivy](https://github.com/aquasecurity/trivy).
-
-For installation instructions just browse to the [Trivy](https://github.com/aquasecurity/trivy) website.
-
-Trivy is very easy to use locally and inside your CI/CD system. If you want to have a more enterprise grade tool
-you may look for the [Harbour Registry](https://goharbor.io) (including the Clair image scanner) or a commercial tool like [Snyk](https://snyk.io).
-
-### Kubeaudit for Kubernetes Security Audits
-
-As part of the demos we will also check our Kubernetes for security issues like container running
-with root rights using an open source tool named [Kubeaudit](https://github.com/Shopify/kubeaudit).
-
-For installation instructions just browse to the [Kubeaudit](https://github.com/Shopify/kubeaudit) website.
-
-### Popeye - A Kubernetes Cluster Sanitizer
-
-Popeye is a utility that scans live Kubernetes cluster and reports potential issues with deployed resources and configurations.
-Just head to the [Popeye website](https://github.com/derailed/popeye) to install it.
-
-With that you just _Popeye_ a cluster using your current kubeconfig environment by typing:
-
-```shell
-popeye
-```
-
-### Who-Can for Auditing RBAC
-
-[Kubernetes' Role Based Access (RBAC)](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) is not easy. A recommended helpful tool for auditing RBAC configuration is [AqueSecurity Who-Can](https://github.com/aquasecurity/kubectl-who-can).  
-Just follow the instructions on the [Who-Can website](https://github.com/aquasecurity/kubectl-who-can) to install this.
-
-After installing, you may for example just check who can create pods:
-
-```shell
-kubectl who-can create pods
-```
-
-### Look up role bindings with RBAC lookup
-
-[RBAC Lookup](https://github.com/FairwindsOps/rbac-lookup) is a CLI that allows you to easily find Kubernetes roles and cluster roles bound to any user, service account, or group name.
-
-With RBAC lookup you can just query for example the role bindings of the _default_ service account:
-
-```shell
-kubectl rbac-lookup default -k serviceaccount -o wide
-```
-
-## Demos
+### Introduction
 
 * [Linux & Container Basics](step0-linux-container-basics)
 
-### Iteration 1: Application Security
+#### Iteration 1: Application Security
 
 * [Hello Spring Boot](step1-hello-spring-boot)
 
-### Iteration 2: Container Security
+#### Iteration 2: Container Security
 
 * [Root Container](step2-hello-root)
 * [Rootless Container](step3-hello-rootless)
 * [Rootless Container with JIB](step4-hello-rootless-jib)
 
-### Iteration 3: Kubernetes Security
+#### Iteration 3: Kubernetes Security
 
 * [Initial Unsafe Kubernetes Deployment](step5-initial-k8s-deploy)
 * [Safe Kubernetes Deployment (Pod Security Context)](step6-pod-security-context)
 * [Safe Kubernetes Deployment (Pod Security Policy, _deprecated_)](step7-pod-security-policy)
 * [Safe Kubernetes Deployment (Open Policy Agent)](step8-open-policy-agent)
+
+## Feedback
+
+Any feedback on this hands-on workshop is highly appreciated.
+
+Please either send an email to _andreas.falk(at)novatec-gmbh.de_ or contact me via Twitter (_@andifalk_).
+
+## License
+
+Apache 2.0 licensed
+
+[1]:http://www.apache.org/licenses/LICENSE-2.0.txt

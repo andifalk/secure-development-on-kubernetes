@@ -106,7 +106,7 @@ For more details on docker security consult the [docker security docs](https://d
 ## Privilege Escalation
 
 _Privilege escalation_ happens when a user is extending his/her privileges beyond the 
-privileges hi/she was supposed to have and to take actions that the user shouldn’t be permitted to take. 
+privileges hi/she was supposed to have. Then a user can take actions that shouldn’t be permitted to take. 
 To escalate privileges, attackers takes advantage of a system vulnerability or misconfiguration.
 
 Usually, the attacker starts as a non-privileged user and wants to gain root privileges on the 
@@ -154,13 +154,13 @@ hostname
 ``` 
 
 Now in the new shell we have our own hostname isolated by the _UTS_ namespace.
-If you open a new terminal you will see that the host still has the original hostname.
+Just open a new terminal and check the hostname, then you will see that the host still has the original name.
 
 This basically is the isolation mechanism used by linux containers (combined with linux capabilities).
 
 ## Linux CGroups
 
-Docker uses the Linux cgroups (one of the linux namespaces) to limit resource usage of containers.
+Docker uses the Linux _cgroups_ (one of the linux namespaces) to limit resource usage of containers.
 
 To limit the container to use a maximum of 200MiB and only one half of a cpu use this command:
 
@@ -168,7 +168,7 @@ To limit the container to use a maximum of 200MiB and only one half of a cpu use
 docker container run --cpu-shares=0.5 --memory=200m --rm --detach --name hello-root -p 8080:8080 andifalk/hello-root:latest
 ```
 
-You will recognize that the spring boot application startup is much slower in this container due to less cpu power.
+You will recognize that the spring boot application start up is much slower in this container due to less cpu power.
 
 You can always check the state of the app by issuing the logs:
 

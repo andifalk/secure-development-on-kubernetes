@@ -95,7 +95,7 @@ kubectl exec hello-root-59f59fb9b8-878rk -it -- whoami
 ```
 
 __Note:__ If you have deployed the JIB container image then the base image is a _distroless_ image meaning that
-no shell and no _whoami_ command is inside the container. Therefore you cannot use the command above.
+no shell and no _whoami_ command is inside the container. Therefore, you cannot use the command above.
 
 ## Next
 
