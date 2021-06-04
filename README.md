@@ -2,16 +2,13 @@
 
 # Secure Development on Kubernetes
 
-This repository contains presentation slides, and the complete live demo code for the talk _Secure Development on Kubernetes_.
+This repository contains the complete code labs for the deep dive session on _Secure Development on Kubernetes_.
 
 ## Table of Contents
 
-* [Presentation Slides](#presentation)
 * [Requirements and Setup](#requirements-and-setup)
   * [Java JDK](#java-jdk)
   * [Kubernetes Cluster](#kubernetes)
-  * [Trivy for Image Scanning](#trivy-for-image-scan)
-  * [KubeAudit for K8s Security Audits](#kubeaudit-for-kubernetes-security-audits)
 * [Helpful tools for K8s Security](#helpful-tools-for-k8s-security)  
   * [Trivy for Image Scan](#trivy-for-image-scan)  
   * [Kubeaudit for Kubernetes Security Audits](#kubeaudit-for-kubernetes-security-audits)  
@@ -22,11 +19,7 @@ This repository contains presentation slides, and the complete live demo code fo
   * [Iteration 1: Application Security](#iteration-1-application-security)  
   * [Iteration 2: Container Security](#iteration-2-container-security)  
   * [Iteration 3: Kubernetes Security](#iteration-3-kubernetes-security)
-
-## Presentation
-
-[Presentation Slides (PDF)](https://github.com/andifalk/secure-development-on-kubernetes/raw/master/secure_kubernetes_presentation.pdf)
-
+  
 ## Requirements and Setup
 
 ### Java JDK
@@ -204,5 +197,5 @@ kubectl rbac-lookup default -k serviceaccount -o wide
 
 * [Initial Unsafe Kubernetes Deployment](step5-initial-k8s-deploy)
 * [Safe Kubernetes Deployment (Pod Security Context)](step6-pod-security-context)
-* [Safe Kubernetes Deployment (Pod Security Policy)](step7-pod-security-policy)
+* [Safe Kubernetes Deployment (Pod Security Policy, _deprecated_)](step7-pod-security-policy)
 * [Safe Kubernetes Deployment (Open Policy Agent)](step8-open-policy-agent)

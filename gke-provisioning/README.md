@@ -1,6 +1,6 @@
 # Demo K8s cluster on Google Cloud
 
-Here you find helpful scripts to setup & access
+Here you find helpful scripts to set up & access
 GKE on Google Cloud:
 
 * create-gke.sh: Create a GKE cluster _demo-gke_ with 4 nodes and application level secrets encryption
@@ -11,7 +11,7 @@ GKE on Google Cloud:
 
 ## Login to Google Cloud
 
-You need an account on Google Cloud and you have to login to your account via
+You need an account on Google Cloud, and you have to log in to your account via
 
 ```shell
 gcloud auth login
