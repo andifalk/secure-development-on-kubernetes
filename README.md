@@ -1,4 +1,4 @@
-[![License](https://img.shields.io/badge/License-Apache%20License%202.0-brightgreen.svg)][1]
+![License](https://img.shields.io/badge/License-Apache%20License%202.0-brightgreen.svg)
 ![Java CI](https://github.com/andifalk/secure-development-on-kubernetes/workflows/Java%20CI/badge.svg)
 [![Release](https://img.shields.io/github/release/andifalk/secure-development-on-kubernetes.svg?style=flat)](https://github.com/andifalk/secure-development-on-kubernetes/releases)
 
@@ -24,6 +24,8 @@ Please check the [Requirements and Setup] section first before looking into the 
 For helpful tools see [here](tools/README.md).
 
 ## Labs
+
+Please follow the [corresponding tutorial](https://andifalk.gitbook.io/secure-kubernetes-development/) for the labs.
 
 ### Introduction
 
