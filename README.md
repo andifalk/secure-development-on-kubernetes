@@ -4,7 +4,7 @@
 
 # Secure Development on Kubernetes
 
-This repository contains the complete code labs for the deep dive session on _Secure Development on Kubernetes_.
+This repository contains all the associated code labs for the deep dive session on _Secure Development on Kubernetes_.
 
 ## Table of Contents
 
