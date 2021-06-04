@@ -17,7 +17,7 @@ This repository contains all the associated code labs for the deep dive session 
   
 ## Requirements and Setup
 
-Please check the [Requirements and Setup] section first before looking into the [Labs](#labs).
+Please check the [Requirements and Setup](setup/README.md) section first before looking into the [Labs](#labs).
 
 ## Helpful Tools for K8s Security
 
