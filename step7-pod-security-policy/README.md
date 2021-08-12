@@ -3,7 +3,7 @@
 This deploys the demo application to Kubernetes using cluster-wide pod security policy to enforce that the docker container must run unprivileged using non-root user.
 
 __Please note that as of Kubernetes version 1.21 _pod security policy_ is deprecated and will be replaced by a new corresponding feature in version 1.25.
-Please check this [blog post on kuberneetes.io](https://kubernetes.io/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/) for details.__
+Please check this [blog post on kuberneetes.io](https://kubernetes.io/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/) and the alpha documentation for [pod security admission](https://kubernetes.io/docs/concepts/security/pod-security-admission/) in Kubernetes version 1.22 for details.__
 
 For details on the demo application see [hello spring boot application](../step1-hello-spring-boot).
 
