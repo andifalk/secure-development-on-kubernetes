@@ -14,15 +14,17 @@
 * [Root Container](step2-hello-root/README.md)
 * [Rootless Container](step3-hello-rootless/README.md)
 * [Rootless Container with JIB](step4-hello-rootless-jib/README.md)
+* [Rootless Container with Paketo](step5-hello-paketo/README.md)
 
 ## Kubernetes Security
 
-* [Initial Unsafe Kubernetes Deployment](step5-initial-k8s-deploy/README.md)
-* [Safe Kubernetes Deployment (Pod Security Context)](step6-pod-security-context/README.md)
-* [Safe Kubernetes Deployment (Pod Security Policy, _deprecated_)](step7-pod-security-policy/README.md)
-* [Safe Kubernetes Deployment (Open Policy Agent)](step8-open-policy-agent/README.md)
+* [Initial Unsafe Kubernetes Deployment](Development/localgit/secure-development-on-kubernetes/step6-initial-k8s-deploy/README.md)
+* [Safe Kubernetes Deployment (Pod Security Context)](Development/localgit/secure-development-on-kubernetes/step7-pod-security-context/README.md)
+* [Safe Kubernetes Deployment (Pod Security Admission)](Development/localgit/secure-development-on-kubernetes/step8-pod-security-admission/README.md)
+* [Safe Kubernetes Deployment (Open Policy Agent)](Development/localgit/secure-development-on-kubernetes/step9-open-policy-agent/README.md)
 
 ## Further Resources
 
+* [Kubernetes Authorization (RBAC)](rbac/README.md)
 * [Helpful Tools for Container & K8s Security](tools/README.md)
 * [List of Further Resources](resources/README.md)

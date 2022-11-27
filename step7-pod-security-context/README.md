@@ -180,4 +180,4 @@ kubeaudit all -n default
 
 ## Next
 
-[Next: K8s Pod Security Policy](../step7-pod-security-policy)
+[Next: K8s Pod Security Policy](../step8-pod-security-admission)

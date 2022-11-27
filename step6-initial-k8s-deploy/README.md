@@ -99,4 +99,4 @@ no shell and no _whoami_ command is inside the container. Therefore, you cannot 
 
 ## Next
 
-[Next: K8s Pod Security Context](../step6-pod-security-context)
+[Next: K8s Pod Security Context](../step7-pod-security-context)

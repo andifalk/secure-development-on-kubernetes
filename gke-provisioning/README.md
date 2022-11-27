@@ -9,6 +9,13 @@ GKE on Google Cloud:
 * update-gke-pod-security.sh: Enable Pod Security Policies on the GKE cluster _demo-gke_
 * delete-gke.sh: Delete the GKE cluster _demo-gke_
 
+## Prerequisites
+
+You need:
+* a valid account to access Google Cloud and be able to use the Google API for creating a GKE cluster.
+* installed google cloud cli (see <https://cloud.google.com/sdk/docs/install> for details)
+* installed gke plugin for kubectl (just perform `gcloud components install gke-gcloud-auth-plugin` after you have installed the Google cloud cli)
+
 ## Login to Google Cloud
 
 You need an account on Google Cloud, and you have to log in to your account via
@@ -32,6 +39,12 @@ NAME      LOCATION        MASTER_VERSION  MASTER_IP       MACHINE_TYPE   NODE_VE
 demo-gke  europe-west3-a  1.15.9-gke.8    35.242.252.226  n1-standard-2  1.15.9-gke.8  4          RUNNING
 ```
 
+## Get access to the cluster
+
+After successfully creating the cluster you can access the cluster by running _access-gke.sh_.
+
+You may need to install the gke plugin for kubectl by performing `gcloud components install gke-gcloud-auth-plugin`
+
 ## Install Prometheus Operator and Grafana for Monitoring
 
 You may also install Prometheus Operator for monitoring the cluster using _install-prometheus.sh_ script.
@@ -50,12 +63,6 @@ Interesting ones are:
 When you select the one for the cluster it looks like the following image.
 
 ![Grafana](images/grafana.png)
-
-## Enable Pod Security Policies on GKE
-
-The script _update-gke-pod-security.sh_ enables Pod Security Policies on the GKE cluster _demo-gke_.
-
-__NOTE:__ Before executing this script make sure you have at least one Pod Security Policy applies to your cluster.
 
 ## Delete GKE cluster again
 

@@ -1,11 +1,13 @@
 # Safe K8s Deployment using Gatekeeper & Open Policy Agent 
 
+## Introduction
+
 This demo shows how to enforce security policies for K8s deployments using [Open Policy Agent](https://www.openpolicyagent.org), 
 and the corresponding [Gatekeeper](https://github.com/open-policy-agent/gatekeeper) project.
 
 For details on the demo application see [hello spring boot application](../step1-hello-spring-boot).
 
-## Open Policy Agent
+### Open Policy Agent
 
 Before diving into the Kubernetes part with [Gatekeeper](https://github.com/open-policy-agent/gatekeeper) 
 let's look into [Open Policy Agent](https://www.openpolicyagent.org) how open policies work in general.
@@ -34,9 +36,9 @@ deny[msg] {
 This example checks if the container image to be deployed on a K8s cluster origins from 
 a trusted container registry called (_myreg.com_).
 
-To evaluate and play with [Rego](https://www.openpolicyagent.org/docs/latest/policy-language) you can use the [The Rego Playground](https://play.openpolicyagent.org)
+To evaluate and play with [Rego](https://www.openpolicyagent.org/docs/latest/policy-language) you can use [The Rego Playground](https://play.openpolicyagent.org)
 
-## Gatekeeper
+### Gatekeeper
 
 [Gatekeeper](https://github.com/open-policy-agent/gatekeeper) installs an [admission controller](https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/) on K8s that contains 
 the [Open Policy Agent](https://www.openpolicyagent.org) to enforce policies for deployments on the Kubernetes cluster.
@@ -44,6 +46,8 @@ the [Open Policy Agent](https://www.openpolicyagent.org) to enforce policies for
 ![opa](images/gatekeeper.png)
 
 (Source: https://www.openpolicyagent.org)
+
+## Lab
 
 To install [Gatekeeper](https://github.com/open-policy-agent/gatekeeper) just follow 
 the [installation instructions](https://github.com/open-policy-agent/gatekeeper#deploying-a-release-using-prebuilt-image)

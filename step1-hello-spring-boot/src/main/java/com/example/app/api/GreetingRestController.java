@@ -1,7 +1,6 @@
 package com.example.app.api;
 
 import com.example.app.config.GreetingConfiguration;
-import org.owasp.encoder.Encode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -15,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.ConstraintViolationException;
-import javax.validation.constraints.Size;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.constraints.Size;
 
 @RestController
 @Validated
@@ -39,7 +38,7 @@ public class GreetingRestController {
       return ResponseEntity.ok(
           String.format(
               "%s %s",
-              greetingConfiguration.getGreeting(), Encode.forHtml(Encode.forJavaScript(message))));
+              greetingConfiguration.getGreeting(), message));
     } else {
       return ResponseEntity.ok(
           String.format(

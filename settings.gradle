@@ -4,4 +4,5 @@ include 'step1-hello-spring-boot'
 include 'step2-hello-root'
 include 'step3-hello-rootless'
 include 'step4-hello-rootless-jib'
+include 'step5-hello-paketo'
 

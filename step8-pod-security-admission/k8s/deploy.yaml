@@ -37,11 +37,11 @@ spec:
               path: /actuator/health
               port: 8080
             initialDelaySeconds: 10
-            periodSeconds: 5  
+            periodSeconds: 5
           volumeMounts:
             - name: tmp-volume
               mountPath: /tmp
       restartPolicy: Always
       volumes:
         - name: tmp-volume
-          emptyDir: {}
+          emptyDir: { }

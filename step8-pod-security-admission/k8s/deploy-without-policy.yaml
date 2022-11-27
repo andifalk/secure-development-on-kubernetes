@@ -42,4 +42,4 @@ spec:
       restartPolicy: Always
       volumes:
         - name: tmp-volume
-          emptyDir: {}
+          emptyDir: { }

@@ -3,11 +3,9 @@ package com.example.app;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -16,7 +14,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest
 @DisplayName("greeting")
 class GreetingAPITests {
@@ -80,17 +77,5 @@ class GreetingAPITests {
     mockMvc
         .perform(get("/?message=").accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isBadRequest());
-  }
-
-  @Test
-  @DisplayName("with message parameter is safe from XSS")
-  void greetingEscapesJavascript() throws Exception {
-
-    mockMvc
-        .perform(
-            get("/?message={message}", "<script>alert('XSS')</script>")
-                .accept(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk())
-        .andExpect(content().string("Hello &lt;script&gt;alert(\\x27XSS\\x27)&lt;\\/script&gt;"));
   }
 }
