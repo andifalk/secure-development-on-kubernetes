@@ -1,8 +1,12 @@
 # Secure Kubernetes/Container Development
 
-## Introduction
+## Setup
 
 * [Requirements and Setup](setup/README.md)
+  * [Setup Google GKE](gke-provisioning/README.md)
+
+## Linux Security Basics
+
 * [Linux & Container Basics](step0-linux-container-basics/README.md)
 
 ## Application Security

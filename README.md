@@ -9,6 +9,7 @@ This repository contains all the associated code labs for the deep dive session 
 ## Table of Contents
 
 * [Requirements and Setup](#requirements-and-setup)
+  * [Setup Google GKE](gke-provisioning/README.md)
 * [K8s Authorization (RBAC)](#kubernetes-authorization-with-rbac)
 * [Helpful tools for K8s Security](#helpful-tools-for-k8s-security)  
 * [Labs](#labs)
@@ -51,7 +52,7 @@ Please follow the [corresponding tutorial](https://andifalk.gitbook.io/secure-ku
 
 * [Initial Unsafe Kubernetes Deployment](step6-initial-k8s-deploy)
 * [Safe Kubernetes Deployment (Pod Security Context)](step7-pod-security-context)
-* [Safe Kubernetes Deployment (Pod Security Admission](step8-pod-security-admission)
+* [Safe Kubernetes Deployment (Pod Security Admission)](step8-pod-security-admission)
 * [Safe Kubernetes Deployment (Open Policy Agent)](step9-open-policy-agent)
 
 ## Feedback
