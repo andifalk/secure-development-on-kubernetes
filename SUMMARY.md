@@ -22,10 +22,10 @@
 
 ## Kubernetes Security
 
-* [Initial Unsafe Kubernetes Deployment](Development/localgit/secure-development-on-kubernetes/step6-initial-k8s-deploy/README.md)
-* [Safe Kubernetes Deployment (Pod Security Context)](Development/localgit/secure-development-on-kubernetes/step7-pod-security-context/README.md)
-* [Safe Kubernetes Deployment (Pod Security Admission)](Development/localgit/secure-development-on-kubernetes/step8-pod-security-admission/README.md)
-* [Safe Kubernetes Deployment (Open Policy Agent)](Development/localgit/secure-development-on-kubernetes/step9-open-policy-agent/README.md)
+* [Initial Unsafe Kubernetes Deployment](step6-initial-k8s-deploy/README.md)
+* [Safe Kubernetes Deployment (Pod Security Context)](step7-pod-security-context/README.md)
+* [Safe Kubernetes Deployment (Pod Security Admission)](step8-pod-security-admission/README.md)
+* [Safe Kubernetes Deployment (Open Policy Agent)](step9-open-policy-agent/README.md)
 
 ## Further Resources
 
