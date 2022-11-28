@@ -22,10 +22,10 @@
 
 ## Kubernetes Security
 
-* [Initial Unsafe Kubernetes Deployment](step6-initial-k8s-deploy/README.md)
-* [Safe Kubernetes Deployment (Pod Security Context)](step7-pod-security-context/README.md)
-* [Safe Kubernetes Deployment (Pod Security Admission)](step8-pod-security-admission/README.md)
-* [Safe Kubernetes Deployment (Open Policy Agent)](step9-open-policy-agent/README.md)
+* [Initial Unsafe K8s Deployment](step6-initial-k8s-deploy/README.md)
+* [Safe K8s Deployment with Pod Security Context](step7-pod-security-context/README.md)
+* [Safe K8s Deployment with Pod Security Admission](step8-pod-security-admission/README.md)
+* [Safe K8s Deployment with Open Policy Agent](step9-open-policy-agent/README.md)
 
 ## Further Resources
 
