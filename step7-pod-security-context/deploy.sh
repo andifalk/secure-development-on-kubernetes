@@ -1,4 +1,4 @@
 #!/bin/sh
 
-kubectl apply -f ./deploy.yaml
-kubectl apply -f ./service.yaml
+kubectl apply -f ./k8s/deploy.yaml
+kubectl apply -f ./k8s/service.yaml

@@ -2,21 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: hello-root
-  name: hello-root
+    app: hello-privileged
+  name: hello-privileged
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hello-root
+      app: hello-privileged
   template:
     metadata:
       labels:
-        app: hello-root
+        app: hello-privileged
     spec:
       containers:
       - image: andifalk/hello-root:latest
-        name: hello-root
+        name: hello-privileged
+        securityContext:
+          privileged: true
         readinessProbe:
           httpGet:
             path: /actuator/health

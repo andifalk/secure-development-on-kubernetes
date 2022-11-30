@@ -1,19 +1,11 @@
 # Non-Root Docker Container using Paketo
 
-This demo again builds an improved docker image from the demo application.
+This demo again builds a container image from the demo application.
 For details on the demo application see [hello spring boot application](../step1-hello-spring-boot).
 
-But this time instead of using a _Dockerfile_ we will use [Google JIB](https://github.com/GoogleContainerTools/jib) to build the container image.
+But this time instead of using a _Dockerfile_ or JIB we will just try [spring boot tooling](https://docs.spring.io/spring-boot/docs/current/reference/html/container-images.html#container-images.buildpacks) together with [paketo buildpacks](https://github.com/paketo-buildpacks/spring-boot) to build the container image.
 
-Using JIB has the following advantages compared to classical image creation using Dockerfile:  
-
-* With JIB, you even can build a container image without a docker daemon installed on your machine.
-* Building images repeatedly is much faster as JIB optimizes this to the typical development flow (i.e. the application code changes much more frequently then dependencies).
-* JIB uses the [Google Distroless Base Images](https://github.com/GoogleContainerTools/distroless) that only include the minimum components just to execute the desired process (e.g. Go or Java)
-
-JIB works by using adding a plugin to your maven or gradle build.
-So here we add the plugin to our gradle build. And we also configure a non-root user in the _gradle.build_ file to build a container image that will run 
-without using the root user.
+__Important note__: Paketo buildpacks are still missing ARM64 support (Apple M1/M2 Mac hardware). See [GitHub issue: Add support for arm64](https://github.com/paketo-buildpacks/stacks/issues/51) for details.
 
 ```groovy
 plugins {

@@ -32,7 +32,6 @@ dependencies {
 tasks.named("bootBuildImage") {
     imageName = "ntandreasfalk/hello-paketo:latest"
     tags = ['latest']
-    publish = true
 }
 
 tasks.named('test') {

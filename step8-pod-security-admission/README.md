@@ -38,6 +38,7 @@ For details on the demo application see [hello spring boot application](../step1
 Create the following namespaces using this commands:
 
 ```bash
+kubectl create ns privileged
 kubectl create ns baseline
 kubectl create ns restricted
 ```
@@ -54,7 +55,8 @@ kubectl label --overwrite ns restricted pod-security.kubernetes.io/enforce=restr
 
 These commands achieve the following result:
 
-* Workloads in the `baseline` namespace that violate the `baseline` policy are allowed, and the client displays a warning message.
+* Workloads in the `privileged` namespace can be deployed without any restrictions (even in privileged mode).
+* Workloads in the `baseline` namespace that violate the `baseline` policy are reject, and the client displays a warning message.
 * Workloads in the `restricted` namespace that violate the `restricted` policy are rejected, and the cluster adds a corresponding entry to the audit logs.
 
 Verify that the labels were added:
@@ -66,66 +68,12 @@ kubectl get ns --show-labels
 The output should be similar to the following (other existing namespaces are omitted here):
 
 ```bash
-baseline-ns       Active   74s   kubernetes.io/metadata.name=baseline-ns,pod-security.kubernetes.io/warn=baseline
-restricted-ns     Active   18s   kubernetes.io/metadata.name=restricted-ns,pod-security.kubernetes.io/enforce=restricted
+baseline       Active   74s   kubernetes.io/metadata.name=baseline-ns,pod-security.kubernetes.io/warn=baseline
+restricted     Active   18s   kubernetes.io/metadata.name=restricted-ns,pod-security.kubernetes.io/enforce=restricted
 ```
 
 ### Testing the configured policies
 
-The corresponding container image is pulled from [andifalk/hello-rootless-jib](https://cloud.docker.com/repository/registry-1.docker.io/andifalk/hello-rootless-jib) docker hub repository.
+To test the policy enforcement we now try to deploy a privileged pod/container into the privileged, baseline or restricted namespaces and see what happens.
 
-The application is deployed using the following deployment yaml file _k8s/deploy.yaml_:
-
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
-    app: hello-rootless-with-policy
-  name: hello-rootless-with-policy
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: hello-rootless-with-policy
-  template:
-    metadata:
-      labels:
-        app: hello-rootless-with-policy
-    spec:
-      serviceAccountName: no-root-policy-serviceaccount
-      automountServiceAccountToken: false
-      containers:
-        - image: andifalk/hello-rootless-jib:latest
-          name: hello-rootless-with-policy
-          resources:
-            limits:
-              cpu: "1"
-              memory: "512Mi"
-            requests:
-              cpu: "0.5"
-              memory: "256Mi"
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 8080
-            initialDelaySeconds: 5
-            periodSeconds: 5
-          livenessProbe:
-            httpGet:
-              path: /actuator/health
-              port: 8080
-            initialDelaySeconds: 10
-            periodSeconds: 5  
-          volumeMounts:
-            - name: tmp-volume
-              mountPath: /tmp
-      restartPolicy: Always
-      volumes:
-        - name: tmp-volume
-          emptyDir: {}
-```
-
-Please note that the all security context settings have been removed here as the same will be enforced by the namespace-wide pod security standard instead later.
-
-
+Then we will deploy a non-privileged pod/container into the baseline or restricted namespaces to see if this will run there.

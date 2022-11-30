@@ -2,24 +2,24 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: hello-security-ctx
-  name: hello-security-ctx
+    app: hello-unprivileged
+  name: hello-unprivileged
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hello-security-ctx
+      app: hello-unprivileged
   template:
     metadata:
       labels:
-        app: hello-security-ctx
+        app: hello-unprivileged
     spec:
       automountServiceAccountToken: false
       securityContext:
         runAsNonRoot: true
       containers:
       - image: andifalk/hello-rootless-jib:latest
-        name: hello-security-ctx
+        name: hello-unprivileged
         resources:
           limits:
             cpu: "1"
@@ -32,6 +32,8 @@ spec:
           allowPrivilegeEscalation: false
           privileged: false
           runAsNonRoot: true
+          seccompProfile:
+            type: RuntimeDefault
           capabilities:
             drop:
               - ALL
