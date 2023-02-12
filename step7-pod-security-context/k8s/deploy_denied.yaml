@@ -18,7 +18,7 @@ spec:
       securityContext:
         runAsNonRoot: true
       containers:
-      - image: andifalk/hello-root:latest
+      - image: andifalk/hello-root:latest-amd64
         name: hello-security-ctx-deny
         resources:
           limits:

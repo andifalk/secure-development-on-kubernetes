@@ -18,7 +18,7 @@ spec:
       securityContext:
         runAsNonRoot: true
       containers:
-      - image: andifalk/hello-rootless-jib:latest
+      - image: andifalk/hello-rootless:latest-amd64
         name: hello-security-ctx
         resources:
           limits:

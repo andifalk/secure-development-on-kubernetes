@@ -15,7 +15,7 @@ spec:
         app: hello-privileged
     spec:
       containers:
-      - image: andifalk/hello-root:latest
+      - image: andifalk/hello-root:latest-amd64
         name: hello-privileged
         securityContext:
           privileged: true

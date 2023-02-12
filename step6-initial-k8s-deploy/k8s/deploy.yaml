@@ -15,7 +15,7 @@ spec:
         app: hello-root
     spec:
       containers:
-      - image: andifalk/hello-root:latest
+      - image: andifalk/hello-root:latest-amd64
         name: hello-root
         readinessProbe:
           httpGet:
