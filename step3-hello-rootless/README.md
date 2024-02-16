@@ -22,7 +22,7 @@ You can prove that the container now does not run with root any more by using th
 
 ```shell
 docker container run --rm --detach --name hello-rootless \
--p 8080:8080 ntandreasfalk/hello-rootless:latest
+-p 8080:8080 andifalk/hello-rootless:latest-arm64
 docker exec hello-rootless whoami
 ```
 
@@ -37,7 +37,7 @@ for _docker run_:
 
 ```shell
 docker container run --security-opt=no-new-privileges --rm --detach --name hello-rootless \
--p 8080:8080 ntandreasfalk/hello-rootless:latest
+-p 8080:8080 andifalk/hello-rootless:latest-arm64
 ```
 
 You should also be able to reach the dockerized application via [localhost:8080](http://localhost:8080).
@@ -54,7 +54,7 @@ Now we can check our image for vulnerabilities with high and critical severities
 
 ```shell
 trivy i --clear-cache
-trivy i --severity HIGH,CRITICAL ntandreasfalk/hello-rootless:latest
+trivy i --severity HIGH,CRITICAL andifalk/hello-rootless:latest-arm64
 ```
 
 ## Next

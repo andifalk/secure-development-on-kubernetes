@@ -43,7 +43,7 @@ You can prove this by using these commands:
 
 ```bash
 docker container run --rm --detach --name hello-root \
--p 8080:8080 ntandreasfalk/hello-root:latest
+-p 8080:8080 andifalk/hello-root:latest-arm64
 docker exec hello-root whoami
 ```
 
@@ -112,7 +112,7 @@ Docker uses the Linux _cgroups_ to limit resource usage of containers.
 To limit the container to use a maximum of 200MiB and only one half of a cpu use this command:
 
 ```shell
-docker container run --cpu-shares=0.5 --memory=200m --rm --detach --name hello-root -p 8080:8080 ntandreasfalk/hello-root:latest
+docker container run --cpu-shares=0.5 --memory=200m --rm --detach --name hello-root -p 8080:8080 andifalk/hello-root:latest-arm64
 ```
 
 You will recognize that the spring boot application start up is much slower in this container due to less cpu power.
@@ -137,7 +137,7 @@ Now let's check our image for vulnerabilities of critical and high severity usin
 
 ```shell
  trivy i --clear-cache
- trivy i --severity=HIGH,CRITICAL ntandreasfalk/hello-root:latest
+ trivy i --severity=HIGH,CRITICAL andifalk/hello-root:latest-arm64
 ```
 
 You only need the first command to clear the cache when using images with _latest_ tag. 

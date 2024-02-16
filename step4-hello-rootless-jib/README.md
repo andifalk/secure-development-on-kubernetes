@@ -22,7 +22,7 @@ plugins {
 
 jib {
     to {
-        image = 'ntandreasfalk/hello-rootless-jib:latest'
+        image = 'andifalk/hello-rootless-jib:latest'
         platforms {
             platform {
                 architecture = 'amd64'
@@ -44,7 +44,7 @@ You can prove this by using these commands:
 
 ```shell
 docker container run --rm --detach --name hello-rootless-jib \
--p 8080:8080 ntandreasfalk/hello-rootless-jib:latest
+-p 8080:8080 andifalk/hello-rootless-jib:latest
 docker exec hello-rootless-jib whoami
 ```
 
@@ -64,7 +64,7 @@ Now we can check our image for vulnerabilities with high and critical severities
 
 ```shell
 trivy i --clear-cache
-trivy i --severity HIGH,CRITICAL ntandreasfalk/hello-rootless-jib:latest
+trivy i --severity HIGH,CRITICAL andifalk/hello-rootless-jib:latest
 ```
 
 ## Next
