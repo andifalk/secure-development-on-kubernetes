@@ -53,8 +53,8 @@ docker stop hello-rootless
 Now we can check our image for vulnerabilities with high and critical severities using this command:
 
 ```shell
-trivy i --clear-cache
-trivy i --severity HIGH,CRITICAL andifalk/hello-rootless:latest-arm64
+trivy clean --scan-cache
+trivy image --severity HIGH,CRITICAL andifalk/hello-rootless:latest-arm64
 ```
 
 ## Next

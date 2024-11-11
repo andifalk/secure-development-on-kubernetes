@@ -136,8 +136,8 @@ All details on limiting resources can be found in [docker resource constraints](
 Now let's check our image for vulnerabilities of critical and high severity using these commands:
 
 ```shell
- trivy i --clear-cache
- trivy i --severity=HIGH,CRITICAL andifalk/hello-root:latest-arm64
+ trivy clean --scan-cache
+ trivy image --severity=HIGH,CRITICAL andifalk/hello-root:latest-arm64
 ```
 
 You only need the first command to clear the cache when using images with _latest_ tag. 
